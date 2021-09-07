@@ -1,0 +1,302 @@
+{% extends 'basetemplate.html' %}
+{% load static %}
+<!-- CSS starts here -->
+{% block stylesheets %}
+<style>
+  body{
+    background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+    }
+    .container{
+    height: 100%;
+    align-content: center;
+    margin-top:60px;
+    }
+
+    .card{
+    min-height: 370px;
+    border-radius: 4px;
+    padding: 15px;
+    max-width: 500px;
+    background-color: rgba(0,0,0,0.5) !important;
+    }
+    .note h2{
+      color: white;
+      font-weight: bold;
+    }
+    .card-header h3{
+      color: white;
+    }
+
+    .social_icon{
+    position: absolute;
+    right: 20px;
+    top: -45px;
+    }
+
+    .input-group-prepend span{
+    width: 50px;
+    background-color: #FFC312;
+    color: black;
+    border:0 !important;
+    }
+
+    input:focus{
+    outline: 0 0 0 0  !important;
+    box-shadow: 0 0 0 0 !important;
+
+    }
+
+    .remember{
+    color: white;
+    }
+
+    .remember input
+    {
+    width: 20px;
+    height: 20px;
+    margin-left: 15px;
+    margin-right: 5px;
+    }
+
+    .btnSubmit{
+    color: black;
+    background-color: #FFC312;
+    width: 100px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    }
+
+    .btnSubmit:hover{
+    color: black;
+    background-color: white;
+    /* height: 40px; */
+    }
+
+    .links{
+    color: white;
+    }
+
+    .links a{
+    margin-left: 4px;
+    }
+    .card-bg{
+      position: relative;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+</style>
+{% endblock stylesheets %}
+  <!-- CSS Ends here -->
+<!-- Body starts here -->
+{% block body %}
+<br>
+  <div class="container register-form">
+    <div class="card-bg">
+      <div class="card">
+        <div class="note">
+          <h2>Register Your Agency</h2>
+        </div>
+        {% if messages %}
+                      {% for message in messages %}
+                      <div class="col-md-12">
+                          <div class="alert alert-{{message.tags}}" role="alert">
+                              {{message}}
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                              </button>
+                          </div>
+                      </div>
+                      {% endfor %}
+        {% endif %}
+      
+        <div class="card-body">
+          <form class="form-content" method="POST" action='/accounts/seller/account/register-agency' enctype="multipart/form-data" onsubmit="return registrationValidator()"  >
+            {% csrf_token %}
+              <div class="row">
+                <div class="col-md-12">
+                  <div id="errormsgbg">
+                    <div id="errormsg" onclick="getElementById('errormsg').innerHTML = null;getElementById('errormsg').style.padding='0px'"></div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Agency Name *" name="name" id="fullname" required />
+                </div>
+
+                <div class="form-group">
+                  <input type="text" class="form-control"  minlength="10" maxlength="10" placeholder="Phone Number *" name="phone" id="phone" required />
+                </div>
+                <div class="form-group">
+                  <select name="country" class="countries form-control" id="countryId"  required  >
+                    <option value="">Select Country</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <select name="state" class="states form-control" id="stateId" required  >
+                    <option value="">Select State</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <select name="city" class="cities form-control" id="cityId" required  >
+                    <option value="">Select City</option>
+                  </select>
+                </div>
+
+              </div>
+              <div class="col-md-6">
+
+                <div class="form-group">
+                  <input type="number" class="form-control" placeholder="Zip Code *" name="zip" id="zip" required />
+                </div>
+                <div class="form-group">
+                  <select class="form-control" id='govProof' name="govApproved" onchange='takeProof();' required >
+                    <option class="hidden" selected='' value="" disabled=''>Government Approved or Not:</option>
+                    <option value=1>Yes</option>
+                    <option value=0>No</option>
+                  </select>
+                </div>
+
+                <div class="form-group" style="display: none;" id='takeValue'>
+                  <input type="text" class="form-control" placeholder="Enter Your Proof ID *" id="takeValued" name="govApprovedId" />
+                </div>
+                <script>
+                  function takeProof() {
+                    var getBox = document.getElementById('govProof');
+                    var mvalue = getBox.options[getBox.selectedIndex].value;
+                    if (mvalue == 1) {
+                      document.getElementById('takeValue').style.display = "block";
+                      document.getElementById('takeValued').required=true;
+                    }
+                    else {
+                      document.getElementById('takeValue').style.display = "none";
+                      document.getElementById('takeValued').required=false;
+                    }
+                  }
+                </script>
+                <div class="form-group">
+                  <textarea class="form-control" name="agencyAddress" placeholder="Enter Your Agency Full Address*" rows="3" id="address" required  ></textarea>
+                </div>
+              </div>
+            </div>
+            
+            <center><input type="submit" class="btnSubmit" value="Submit" /></center>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function registrationValidator()
+    {
+        var name = document.getElementById('fullname').value;
+        var country = document.getElementById('countryId').value;
+        var state = document.getElementById('stateId').value;
+        var district = document.getElementById('cityId').value;
+        var zip = document.getElementById('zip').value;
+        var agencyaddress = document.getElementById('address').value;
+        var takeValued=document.getElementById("takeValued").value;
+        var govApproved=document.getElementById("govProof").value;
+        var phone=document.getElementById("phone").value;
+        var errormsgbg=document.getElementById('errormsgbg');
+        var errormsg=document.getElementById('errormsg');
+        var msg=[];
+        if(name!=="" && country!=="" && state!=="" && district!=="" && zip!=="" && agencyaddress!=="" && govApproved!=="" && phone!=="")
+        {  
+            if(phone!=Number(phone)){
+                msg.push("Your phone must be number");
+            }
+            if(phone.length!=10){
+                msg.push("Please Enter a valid Phone number");
+            }
+            if(zip.length!=6){
+                msg.push("Please Enter a valid Zip Code");  
+            }
+            if(govApproved==1)
+            {
+                if(takeValued==="" || takeValued==null)
+                {
+                    msg.push("Please Enter the Government Id")
+                }
+            }
+            else
+            {
+                document.getElementById('takeValued').value="";
+            }          
+        }
+        else
+        {
+            msg.push("Please enter all the Details")
+        }
+        //console.log(msg,phone,zip,govApproved,takeValued);
+        if(msg.length>0){
+            errormsg.innerHTML=msg.join(". \n");
+            errormsgbg.style.width="500px";
+            errormsg.style.padding="8px";
+            errormsgbg.style.borderRadius="5px";
+            errormsgbg.style.backgroundColor='#FBD0F5';
+            errormsg.style.color='red';
+            errormsgbg.style.marginBottom='10px';
+            // errormsg.style.fontWeight="bold";
+            return false;
+        }
+        return true;
+    }
+    function removeValidator(){
+        var errormsg=document.getElementById('errormsg');
+        
+        var errormsgbg=document.getElementById('errormsgbg');
+        errormsg.innerHTML = null;
+        errormsg.style.padding='0px';
+        errormsgbg.style.marginBottom='0px';
+    }
+</script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="//geodata.solutions/includes/countrystatecity.js"></script>
+  <script type="text/javascript">
+    const $dropdown = $(".dropdown");
+    const $dropdownToggle = $(".dropdown-toggle");
+    const $dropdownMenu = $(".dropdown-menu");
+    const showClass = "show";
+
+    $(window).on("load resize", function () {
+      if (this.matchMedia("(min-width: 768px)").matches) {
+        $dropdown.hover(
+          function () {
+            const $this = $(this);
+            $this.addClass(showClass);
+            $this.find($dropdownToggle).attr("aria-expanded", "true");
+            $this.find($dropdownMenu).addClass(showClass);
+          },
+          function () {
+            const $this = $(this);
+            $this.removeClass(showClass);
+            $this.find($dropdownToggle).attr("aria-expanded", "false");
+            $this.find($dropdownMenu).removeClass(showClass);
+          }
+        );
+      } else {
+        $dropdown.off("mouseenter mouseleave");
+      }
+    });
+
+    jQuery(document).ready(function ($) {
+      $(window).scroll(function () {
+        if ($(document).scrollTop() > 150) {
+          // Navigation Bar
+          $('.navbar').removeClass('fadeIn');
+          $('body').addClass('shrink');
+          $('.navbar').addClass('animated fadeInDown');
+        } else {
+          $('.navbar').removeClass('fadeInDown');
+          $('body').removeClass('shrink');
+          $('.navbar').addClass('animated fadeIn');
+        }
+      });
+    });
+  </script>
+{% endblock body %}
+<!-- Body Ends here -->

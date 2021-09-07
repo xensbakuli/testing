@@ -1,0 +1,458 @@
+    {% extends 'basetemplate.html' %}
+    {% block body %}
+	<style>
+	/*share*/
+
+        .mobile-social-share {
+            
+            display: block !important;
+            
+        }
+        .card{
+            margin-top: 0!important;
+        }
+        .modal {
+            background-image: linear-gradient(rgb(35, 79, 71) 0%, rgb(36, 121, 106) 100.2%)
+        }
+
+        .modal-title {
+            font-weight: 900
+        }
+
+        .modal-content {
+            border-radius: 13px
+        }
+
+        .modal-body {
+            color: #3b3b3b
+        }
+
+
+
+        .fab:before {
+            position: relative;
+            top: 13px
+        }
+
+        .smd {
+            width: 200px;
+            font-size: small;
+            text-align: center
+        }
+
+        .modal-footer {
+            display: block
+        }
+
+        .ur {
+            border: none;
+            background-color: #e6e2e2;
+            border-bottom-left-radius: 4px;
+            border-top-left-radius: 4px
+        }
+
+        .cpy {
+            border: none;
+            background-color: #e6e2e2;
+            border-bottom-right-radius: 4px;
+            border-top-right-radius: 4px;
+            cursor: pointer
+        }
+
+        button.focus,
+        button:focus {
+            outline: 0;
+            box-shadow: none !important
+        }
+
+        .ur.focus,
+        .ur:focus {
+            outline: 0;
+            box-shadow: none !important
+        }
+
+        .message {
+            font-size: 11px;
+            color: #ee5535
+        }
+        .card-header{
+            margin-top: 0!important;
+        }
+        .container, .row{
+            max-width: 100%;
+            padding: 0;
+            margin: 0;
+        }
+	</style>
+    <div class="container" style="width:100%;">
+      
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card ml-1">
+                    <div class="card-body">          
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <a href='#'>My Questions</a> 
+                                        </li>
+                                    <li class="list-group-item">
+                                        <div class="h6 text-muted">Total Queries</div>
+                                        <div class="h5">{{QNA.count}}</div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="h6 text-muted">Solved Queries</div>
+                                        <div class="h5">32758</div>
+                                    </li>
+                                </ul>
+                                <hr>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="mr-2">
+                                        <img class="rounded-circle" height="45" width="45" src="../../static/img/logo.jpeg" alt="">
+                                    </div>
+                                        <div class="h5">FAQ - Frequently Ask Questions</div>
+                                    </div>
+                                <hr>
+                                
+                                {% for i in "40"|rjust:"40" %}
+                            
+                                <div class="h6 text-muted ml-2">
+                                     <a href ="#">This is my question about this topic</a>
+                                </div>
+                                {% endfor %}
+                              
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="col-md-6 gedf-main mt-2">
+                <!--- \\\\\\\Post-->
+                {% if user.is_authenticated %}
+                <div class="card gedf-card"><a class="hvr" data-toggle="modal" data-target="#exampleModal">
+                    <div class="card-header">
+                            <div class="d-flex justify-content-start">
+                                        <div class="h7 ml-1 text-muted">
+                                            <h6>Hi! {{user.name}}</h6>
+                                        </div>
+                                    </div>
+                                    <hr>
+                        <h3 class="text-muted">Ask Your Question</h3>
+                    </div>
+					</a></div><br>
+					<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+	  <img src="../../static/img/logo.jpeg" width="30" height="30" >
+        <h5 class="modal-title" id="exampleModalLongTitle">&nbsp;&nbsp;&nbsp; Ask your Question <strong>Shiba</strong></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+	  <div class="card-header">
+							<h5 class="text-center" style="font-family: Helvatica;">You can ask any question releated to travelling</h5>
+                                        </div>
+							<div class="card-body">
+                                <form action='/qna/askQuestion' method="POST" enctype="multipart/form-data" onsubmit="return validqn()">
+                                    {% csrf_token %}
+								                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Question Title" name="title" id="qntitle" required/>
+                                        </div>
+                                      <div class="form-group">
+                                          <label class="sr-only" for="message">post</label>
+                                          <textarea class="form-control" id="qnmsg" rows="3" placeholder="Describe Your Question" name='body' required></textarea>
+                                      </div>
+								                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Tags, Add tags by comma" name="tags" id="qntags" required />
+                                </div>
+                                <div class="btn-toolbar justify-content-center">
+                                <div class="btn-group ">
+                                <div id="errormsgbg">
+                                <div id="errormsg" onclick="getElementById('errormsg').innerHTML = null;getElementById('errormsg').style.padding='0px'"></div>
+                                </div>
+                                  <button type="submit" name="submit" class="btn btn-lg " style="background-color:#212529; color:#fff;">Ask</button>
+                                </div>
+                         </form>
+                         <script type="text/javascript">
+                            function validqn(){
+                                var qntitle=document.getElementById('qntitle').value;
+                                var qntags=document.getElementById('qntags').value;
+                                var qnmsg=document.getElementById('qnmsg').value;
+                                var errormsg=document.getElementById('errormsg');
+                                var errormsgbg=document.getElementById('errormsgbg');
+                                var msg=[];
+
+                                // alert(qntitle.length);
+
+                                if(qntitle.length<10){
+                                    // alert('hi');
+                                    msg.push('Title must atleast contains 10 charecters');
+                                }
+                                if(qnmsg.length<20){
+                                    // alert(qnmsg)
+                                    msg.push('Your question must atleast contains 20 charecters');
+                                }
+                                if(msg.length>0){
+                                    errormsg.innerHTML=msg.join(", \n");
+                                    errormsgbg.style.width="500px";
+                                    errormsg.style.padding="8px";
+                                    errormsgbg.style.borderRadius="25px";
+                                    errormsgbg.style.backgroundColor='red';
+                                    errormsg.style.color='#fff';
+                                    errormsg.style.fontWeight="bold";
+                                    return false;
+                                }
+                                return true;
+                            }
+                         </script>
+                        </div>
+                    </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% else %}
+  <center><h3>Please register yourself to ask question </h3></center>
+  <br>
+{% endif %}
+                
+                <!-- Post /////-->
+            
+                <!--- \\\\\\\Post-->
+                {% for qna in QNA %}
+                <div class="card gedf-card">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="mr-2">
+                                    <img class="rounded-circle" height="45" width="45" src="../../static/img/logo.jpeg" alt="">
+                                </div>
+                                <div class="ml-2">
+                                    <div class="h7 m-0">Asked By {{qna.author.name}}</div>
+                                </div>
+                            </div>
+                            <div>
+                                {% if user.is_authenticated and qna.author == user %}
+                                <div class="dropdown">
+                                    <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
+                                        <div class="h6 dropdown-header">Configuration</div>
+                                        <a class="dropdown-item" href="/qna/myquestion/edit/{{qna.slug}}">Edit</a>
+                                        <a class="dropdown-item" href="/qna/question/delete/{{qna.slug}}" id="confirmDelete" onclick = "return confirm('Are you sure You Want to Delete?') ">Delete</a>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>  Posted On {{qna.timestamp_question}}</div>
+                        <a class="card-link" href="question/{{qna.slug}}">
+                            <h5 class="card-title">{{qna.title}}</h5>
+                        </a>
+
+                        <p class="card-text">
+                          {{qna.question_body| truncatechars:200}}
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                    <div class="d-flex justify-content-between align-items-center my-1">
+                                    <div class="col">
+                                        <div class="facebook-reaction"><!-- container div for reaction system --> 
+                    <span class="like-btn"> <!-- Default like button --> 
+                    <span class="fa like-btn-emo fa-thumbs-o-up"></span> <!-- Default like button emotion--> 
+                    <span class="like-btn-text">Like</span> <!-- Default like button text,(Like, wow, sad..) default:Like  -->
+                    <ul class="reactions-box">
+                      <!-- Reaction buttons container-->
+                      <li class="reaction reaction-like" data-reaction="Like"></li>
+                      <li class="reaction reaction-love" data-reaction="Love"></li>
+                      <li class="reaction reaction-haha" data-reaction="HaHa"></li>
+                      <li class="reaction reaction-wow" data-reaction="Wow"></li>
+                      <li class="reaction reaction-sad" data-reaction="Sad"></li>
+                      <li class="reaction reaction-angry" data-reaction="Angry"></li>
+                    </ul>
+                    </span>
+                        
+                    </div>
+                                    </div>
+                                    <div class="col">
+                                        <a href="question/{{qna.slug}}">
+                                        <button type="button" class="btn btn-fbook btn-block btn-sm"><i class="fa fa-comment"aria-hidden="true"></i> 
+                                          Answer Question
+                                        </button>
+                                        </a>
+                                        </div>
+                                    <div class="col">
+                                        <button type="button" class="btn btn-fbook btn-block btn-sm" data-toggle="modal" data-target="#socialmodal"><i class="fa fa-share"
+                                                aria-hidden="true"></i> Share</button>
+
+<div class="modal fade" id="socialmodal" tabindex="-1" aria-labelledby="socialmodal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="socialmodal">Share</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+                <div class="icon-container1 d-flex">
+                    <div class="smd"> 
+					<a href="https://twitter.com/share?url=[post-url]&text=[post-title]&via=[via]&hashtags=[hashtags]" target="_blank"><i class="  fa fa-twitter fa-4x" style="color:#4c6ef5;"></i></a>
+                        <p>Twitter</p>
+                    </div>
+                    <div class="smd"> 
+					<a href="http://www.facebook.com/sharer.php?u=https://simplesharebuttons.com" target="_blank"><i class=" fa fa-facebook-official fa-4x" style="color: #3b5998;"></i></a>
+                        <p>Facebook</p>
+                    </div>
+                    <div class="smd"> 
+					 <a href="https://reddit.com/submit?url=[post-url]&title=[post-title]" target="_blank"><i class=" fa fa-reddit-alien fa-4x" style="color: #FF5700;"></i></a>
+                        <p>Reddit</p>
+                    </div>
+                    <div class="smd"> 
+					<a href="https://www.linkedin.com/shareArticle?url=[post-url]&title=[post-title]" target="_blank"><i class=" fa fa-linkedin-square fa-4x " style="color: #738ADB;"></i></a>
+                        <p>LinkedIn</p>
+                    </div>
+                </div>
+                <div class="icon-container2 d-flex">
+                    <div class="smd"> 
+					<a href="https://api.whatsapp.com/send?text=[post-title] [post-url]" target="_blank"><i class=" fa fa-whatsapp fa-4x" style="color: #25D366;"></i></a>
+                        <p>Whatsapp</p>
+                    </div>
+                    <div class="smd"> 
+					<a href="https://telegram.me/share/url?url=<URL>&text=<TEXT>" target="_blank"><i class=" fa fa-telegram fa-4x" style="color: #4c6ef5;"></i></a>
+                        <p>Telegram</p>
+                    </div>
+                    <div class="smd"> 
+					<a href="https://pinterest.com/pin/create/bookmarklet/?media=[post-img]&url=[post-url]&is_video=[is_video]&description=[post-title]" target="_blank"><i class=" fa fa-pinterest-square fa-4x" style="color: #c8232c;"></i></a>
+                        <p>Pinterest</p>
+                    </div>
+					<div class="smd"> 
+					<a href="fb-messenger://share/?link=http://url-you-want-to-share.com&app_id=your-app-id-here" target="_blank"><img src="../static/img/messenger.svg" width="40" height="50"></a>
+                        <p>Messanger</p>
+                    </div>
+                </div>
+        <div class="modal-footer"> <label style="font-weight: 600">Page Link <span class="message"></span></label><br />
+                <div class="row"> <input class="col-10 ur" type="url" placeholder="Platform Name" id="myInput" aria-describedby="inputGroup-sizing-default" style="height: 40px;"> <button class="cpy" onclick="myFunction()"><i class="fa fa-link"></i></button> </div>
+				<button type="button" class="btn btn-primary">Share</button>
+            </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+                                </div>
+								</div>
+                </div><br>
+                <!-- Post /////-->
+                {% endfor %}
+
+            </div>
+            <div class="col-md-3">
+			
+			<form class="form-inline" method="GET" action='/qna/myquestion/ask/search'>
+            <div class="input-group">
+                <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2" placeholder="Search QNA" name="search">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-primary" type="submit" id="button-addon2">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+        <br>
+                {% for i in "5"|rjust:"5" %}
+                <div class="card gedf-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Tour Title</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">5000 per people</h6>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in volup.</p>
+                        <a href="#" class="card-link">View</a>
+                        <a href="#" class="card-link">Buy</a>
+                    </div>
+                </div>
+				<br>
+                {% endfor %}
+				
+                
+            </div>
+        </div>
+    </div>
+    </div>
+	   
+<script type="text/javascript">
+const $dropdown = $(".dropdown");
+      const $dropdownToggle = $(".dropdown-toggle");
+      const $dropdownMenu = $(".dropdown-menu");
+      const showClass = "show";
+
+      $(window).on("load resize", function () {
+          if (this.matchMedia("(min-width: 768px)").matches) {
+              $dropdown.hover(
+                  function () {
+                      const $this = $(this);
+                      $this.addClass(showClass);
+                      $this.find($dropdownToggle).attr("aria-expanded", "true");
+                      $this.find($dropdownMenu).addClass(showClass);
+                  },
+                  function () {
+                      const $this = $(this);
+                      $this.removeClass(showClass);
+                      $this.find($dropdownToggle).attr("aria-expanded", "false");
+                      $this.find($dropdownMenu).removeClass(showClass);
+                  }
+              );
+          } else {
+              $dropdown.off("mouseenter mouseleave");
+          }
+      });
+	  
+	  jQuery( document ).ready( function($) {
+$( window ).scroll( function () {
+  if ( $(document).scrollTop() > 150 ) {
+    // Navigation Bar
+    $('.navbar').removeClass('fadeIn');
+    $('body').addClass('shrink');
+    $('.navbar').addClass('animated fadeInDown');
+  } else {
+    $('.navbar').removeClass('fadeInDown');
+    $('body').removeClass('shrink');
+    $('.navbar').addClass('animated fadeIn');
+  }
+});
+});
+
+
+$(document).ready(function(){
+"use strict";
+  $(".reaction").on("click",function(){   // like click
+	var data_reaction = $(this).attr("data-reaction");
+	$(".like-details").html("You, Dhaval Rana and 1k others");
+	$(".like-btn-emo").removeClass().addClass('like-btn-emo').addClass('like-btn-'+data_reaction.toLowerCase());
+	$(".like-btn-text").text(data_reaction).removeClass().addClass('like-btn-text').addClass('like-btn-text-'+data_reaction.toLowerCase()).addClass("active");
+
+	if(data_reaction === "Like"){
+	  $(".like-emo").html('<span class="like-btn-like"></span>');
+	}
+	else{
+	  $(".like-emo").html('<span class="like-btn-like"></span><span class="like-btn-'+data_reaction.toLowerCase()+'"></span>');
+	}
+  });
+  $(".like-btn-text").on("click",function(){ // undo like click
+	  if($(this).hasClass("active")){
+		  $(".like-btn-text").text("Like").removeClass().addClass('like-btn-text');
+		  $(".like-btn-emo").removeClass().addClass('like-btn-emo').addClass("like-btn-default");
+		  $(".like-emo").html('<span class="like-btn-like"></span>');
+		  $(".like-details").html("Dhaval Rana and 1k others");
+		  
+	  }	  
+  });  
+});
+</script>
+{% endblock body %}

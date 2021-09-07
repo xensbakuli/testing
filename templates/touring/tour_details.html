@@ -1,0 +1,1316 @@
+{% extends 'basetemplate.html' %}
+{% load static %}
+{% block stylesheets %}
+<!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">-->
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+<style>
+    
+	.disable-click{
+		pointer-events: none;
+    }
+    h1,h2,h3,h4,h5,h6,p{
+        margin: 0;
+    }
+    .row1:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+    .column {
+        float: left;
+        width: 25%;
+    }
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        padding: 30px;
+        margin-top: 60px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        max-height: calc(100% - 60px);
+        overflow: auto;
+        background-color: black;
+    }
+    .modal-content {
+        position: relative;
+        background-color: #fefefe;
+        margin: auto;
+        padding: 0;
+        width: 90%;
+        height: 100%;
+        max-width: 1200px;
+    }
+    .close {
+        color: white;
+        position: absolute;
+        top: 10px;
+        right: 25px;
+        font-size: 35px;
+        font-weight: bold;
+    }
+    .close:hover,
+    .close:focus {
+        color: #999;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .mySlides {
+        position: relative;
+        display: none;
+        width: 100%;
+        max-height: 80%;
+    }
+    .prev,
+    .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        padding: 16px;
+        transform: translateY(-50%);
+        color: white;
+        font-weight: bold;
+        font-size: 20px;
+        transition: 0.6s ease;
+        border-radius: 0 3px 3px 0;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+    .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+    }
+    .prev:hover,
+    .next:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+    .numbertext {
+        color: #f2f2f2;
+        font-size: 12px;
+        padding: 8px 12px;
+        position: absolute;
+        top: 0;
+    }
+    .caption-container {
+        text-align: center;
+        background-color: black;
+        padding: 2px 16px;
+        color: white;
+    }
+    img.demo {
+        opacity: 0.6;
+    }
+    .active,
+    .demo:hover {
+        opacity: 1;
+    }
+    img.hover-shadow {
+        transition: 0.3s;
+    }
+    .hover-shadow:hover {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    .container{
+        max-width: 100%;
+        width: 100%;
+        padding: 0 30px;
+        position: relative;
+    }
+    .row{
+        position: relative;
+    }
+    .row1{
+        top: 0;
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .row1 .column{
+        width: 250px;
+        height: 200px!important;
+        height: auto;
+        margin: 10px;
+        position: relative;
+    }
+    .row1 .column img{
+        border-radius: 4px;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+    .row1 p{
+        position: relative;
+        text-align: center;
+        width: 100%;
+        font-weight: bolder;
+        font-size: 30px;
+        margin-bottom: 5px;
+    }
+    .modalColumn{
+        position: relative;
+        max-height: 20%;
+        width: 100%;
+        display: flex;
+        padding: 0 25px;
+    }
+    .tourDetails{
+        width: 100%;
+        top: 90px;
+        position: sticky;
+        height: 685px;
+    }
+    .tdnavs{
+        width: 100%;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        padding: 10px;
+    }
+    .tdnav{
+        margin: 0 15px;
+        position: relative;
+        width: 45%;
+        height: 85px;
+        border-radius: 5px;
+        background-color: #060b25;
+        padding: 15px;
+        cursor: pointer;
+    }
+    .tdnav p{
+        font-size: 20px;
+        cursor: pointer;
+        line-height: 1.3;
+        color: #fff;
+        text-align: center;
+        font-weight: bolder;
+        margin: 0;
+    }
+    .tdnav.active{
+        background: linear-gradient(to right, #f7b733, #fc4a1a);
+        /* background-color: #fe9797; */
+        cursor: default;
+    }
+    .tdnav.active p{
+        color: black;
+        cursor: default;
+    }
+    .tdcon{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        padding: 15px;
+        display: none;
+    }
+    .tdcon.active{
+        display: flex;
+        flex-flow: column;
+        overflow-y: scroll;
+    }
+    .tourDetails .btns{
+        width: 100%;
+        height: 100px;
+        display: flex;
+    }
+    .tourDetails .btns a{
+        position: relative;
+        width: 50%;
+        height: 80px;
+        font-size: 19px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        outline: none!important;
+    }
+    .tourDetails .btns a:nth-child(1){
+        background-color: cornflowerblue;
+        color: black;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+    .tourDetails .btns a:nth-child(2){
+        background-color: darkslategray;
+        color: #fff;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+    }
+    .tdcons{
+        width: 100%;
+        height: 495px;
+    }
+    .accordion {
+        background-color: #ccc;
+        color: #444;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+        transition: 0.4s;
+        margin: 10px 0 0 0;
+        border-radius: 4px;
+        outline: none!important;
+    }
+
+    .accordion.active, .accordion:hover {
+        background-color: #444;
+        color: #ffffff;
+        font-weight: bold;
+    }
+
+    .accordion:after {
+        content: '\002B';
+        color: #777;
+        font-weight: bold;
+        float: right;
+        margin-left: 5px;
+    }
+
+    .accordion.active:after {
+        content: "\2212";
+    }
+
+    .panel {
+        border-radius: 4px;
+        padding: 0 18px;
+        background-color: #f7fafd;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+        border-bottom-right-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+    .btns2{
+        width: 100%;
+        position: sticky;
+        bottom: 0;
+        left: 0;
+        display: none;
+    }
+    .btns2 a{
+        position: relative;
+        width: 50%;
+        height: 80px;
+        font-size: 19px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        outline: none!important;
+    }
+    .btns2 a:nth-child(1){
+        background-color: cornflowerblue;
+        color: black;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+    .btns2 a:nth-child(2){
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        background-color: darkslategray;
+        color: #fff;
+    }
+    .tdcon2 p{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 8px 0;
+        font-size: 18px;
+        word-break: break-word;
+        padding: 0 10px;
+    }
+    .tdcon1 p{
+        margin: 8px 0;
+    }
+    .tdcon1 p h5{
+        font-weight: bold;
+        font-size: 21px;
+    }
+    .tdcon1 p span{
+        font-size: 18px;
+    }
+    .heading{
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 30px;
+    }
+    .thumbneil{
+        border-radius: 4px;
+        margin-right: 15px;
+        position: relative;
+        width: 350px;
+        height: 310px;
+        border: 1px solid black;
+    }
+    .thumbneil img{
+        border-radius: 4px;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+    .headingCon{
+        position: relative;
+        padding: 0 15px;
+    }
+    .headingCon h1{
+        font-size: 35px;
+        font-weight: bolder;
+    }
+    .headingCon a{
+        color: #726868;
+        font-weight: bold;
+        font-size: 20px;
+    }
+    .price, .specialOffer, .dates, .review, .location, .tourType{
+        margin-top: 10px;
+    }
+    .price h4{
+        color: rgb(56, 148, 56);
+        font-weight: bold;
+        font-size: 17px;
+    }
+    .price p{
+        display: flex;
+        align-items: center;
+    }
+    .price p span:nth-child(1){
+        font-size: 30px;
+        font-weight: bold;
+    }
+    .price p span:nth-child(2){
+        margin: 0 10px;
+        color: red;
+    }
+    .price p span:nth-child(3){
+        color: rgb(56, 148, 56);
+        margin-right: 10px;
+    }
+    .price p span:nth-child(4){
+        color: red;
+    }
+    .review span{
+        padding: 3px 7px;
+        font-size: 20px;
+        color: white;
+        font-weight: bold;
+        background-color: rgb(56, 148, 56);
+        border-radius: 20px;
+    }
+    .specialOffer h5{
+        color: rgb(56, 148, 56);
+        font-weight: bold;
+        font-size: 17px;
+    }
+    .dates{
+        display: flex;
+    }
+    .dates span{
+        font-size: 18px;
+        margin-right: 15px;
+    }
+    .location span{
+        padding: 5px 12px;
+        border-radius: 18px;
+        background-color: #cedaff;
+        color: black;
+        font-size: 20px;
+        font-weight: bold;
+        margin-top: 4px;
+    }
+    .tourType h4{
+        font-size: 17px;
+        font-weight: bold;
+    }
+    .location{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        margin: 15px 0;
+    }
+    .tourType h4:nth-child(1){
+        color: rgb(56, 148, 56);
+        margin-bottom: 5px;
+    }
+    #reviews{
+        padding: 15px 30px;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .reviewHead{
+        font-weight: 700;
+        margin: 40px 0 0 30px;
+    }
+    .TourReview{
+        padding: 10px 15px;
+        width: 310px;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+        display: flex;
+        flex-flow: column;
+    }
+    .stars ul{
+        display: flex;
+        margin: 0;
+        padding: 0;
+    }
+    .stars ul li{
+        margin: 0 5px!important;
+        margin: 0;
+        padding: 0;
+    }
+    .stars ul li i{
+        color: #436e38;
+        font-size: 19px;
+    }
+    .container.pt-3{
+        padding: 0 50px;
+    }
+    .reviewCon{
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .reviewFrom{
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.84);
+    }
+    .tdcon .panel:last-child{
+        margin-bottom: 15px;
+    }
+    .btns2 a:nth-child(2) button, .btns a:nth-child(2) button{
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        background-color: darkslategray;
+        color: #fff;
+        font-size: 19px;
+    }
+    .modal-backdrop.show{
+        z-index: -1;
+    }
+    .modal-body input:nth-child(1){
+        border: none;
+        outline: none;
+    }
+    .modal-body input{
+        margin: 4px 0;
+    }
+    .suggestedTour{
+        display: flex;
+        justify-content: center;
+        flex-flow: column;
+    }
+    .suggestedTour h3{
+        font-size: 25px;
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+    .st{
+        margin: 0px 7px 15px 7px;
+        align-items: center;
+        justify-content: flex-start;
+        position: relative;
+        display: flex;
+        flex-flow: column;
+        width: 130px;
+    }
+    .st .imgbg{
+        width: 130px;
+        position: relative;
+        height: 105px;
+        margin-bottom: 5px;
+        border: 1px solid black;
+        border-radius: 4px;
+    }
+    .st .imgbg img{
+        border-radius: 4px;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+    .st a{
+        text-align: center;
+        color: #726868;
+        font-size: 18px;
+    }
+    .allst{
+        position: relative;
+        width: 100%;
+        align-items: center;
+        justify-content: space-around;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .interested{
+        display: flex;
+        margin: 15px 0;
+        align-items: center;
+    }
+    .interested span{    
+        padding: 5px 0;
+        border-radius: 18px;
+        background-color: #cedaff;
+        color: black;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        margin: 4px 10px 0 0;
+        width: 130px;
+        cursor: pointer;
+    }
+    .interested label{
+        cursor: pointer;
+        margin: 0;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .ShareBtns{
+        overflow: hidden;
+        width: 320px;
+        height: 200px;
+        background: rgba( 255, 255, 255, 0.47 );
+        box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+        backdrop-filter: blur( 2.0px );
+        -webkit-backdrop-filter: blur( 2.0px );
+        border-radius: 10px;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%) scale(0);
+        z-index: 2;
+        opacity: 0;
+        transition: 0.4s;
+    }
+    .ShareBtns ul{
+        background: rgba( 255, 255, 255, 0.47 );
+        box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+        backdrop-filter: blur( 2.0px );
+        -webkit-backdrop-filter: blur( 2.0px );
+        height: 100%;
+        display: flex;
+        list-style: none;
+        flex-wrap: wrap;
+        align-items: center;
+        transition-duration: 0.5s;
+        border-radius: 10px;
+    }
+    .ShareBtns ul li{
+        margin: 5px 0 0 0;
+        height: 100%;
+    }
+    .ShareBtns ul a{
+        text-decoration: none;
+        color: #212529;
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        margin: 10px;
+        font-size: 18px;
+        cursor: pointer;
+    }
+    input[name='features'] {
+        position: absolute;
+        left: -5000px;
+    }
+    .ShareBtns.active {
+        opacity: 1;
+        transform: translate(-50%,-50%) scale(1);
+    }
+    .copiedAlert{
+        position: fixed;
+        z-index: 20;
+        width: 100%;
+        height: 60px;
+        background: #000;
+        color: white;
+        font-weight: bold;
+        font-size: 25px;
+        align-items: center;
+        justify-content: center;
+        display: none;
+        left: 0;
+        bottom: 0;
+    }
+    @media screen and (max-width:990px){
+        .tourDetails{
+            position: relative;
+        }
+        .modal-content{
+            height: auto;
+        }
+        .tourDetails .btns{
+            display: none;
+        }
+        .btns2{
+            display: flex;
+        }
+    }
+    @media screen and (max-width:480px){
+        .tdnavs{
+            padding: 10px 0;
+        }
+        .tdnav{
+            width: 50%;
+            margin: 0;
+            border-radius: 0px;
+        }
+        .dates span {
+            font-size: 16px;
+        }
+        .tdnav1{
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
+        .tdnav2{
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+        .container.pt-5{
+            padding: 0;
+        }
+        .heading{
+            justify-content: center;
+        }
+        .thumbneil{
+            margin: 0;
+            width: 320px;
+            height: 260px;
+            margin-bottom: 20px;
+        }
+        .location span{
+            font-size: 17px;
+        }
+        .price p span:nth-child(3) {
+            margin-right: 5px;
+        }
+        .price p span:nth-child(1) {
+            font-size: 20px;
+        }
+        .headingCon h1 {
+            word-break: break-word;
+            margin-bottom: 15px;
+        }
+    }
+	footer .container{
+	width:90%;
+	}
+    .btn-success{
+        color: #fff!important;
+        background-color: #28a745!important;
+    }
+</style>
+{% endblock stylesheets %}
+
+{% block body %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="jquery-3.5.1.min.js"></script>
+<!-- loader -->
+<div id="preload">
+    <img id="loading-image" src="{% static 'img/loader1.gif' %}" alt="loader" />
+</div>
+<script type="text/javascript">
+    var loader = document.getElementById('preload');
+    function removeLoader() {
+      setTimeout(function () {
+        loader.style.display = 'none';
+      }, 3000);
+    }
+</script>
+{% if messages %}
+    {% for message in messages %}
+                    <div class="col-md-12 mt-3">
+                        <div class="alert alert-{{message.tags}}" role="alert">
+                            {{message}}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                    {% endfor %}
+{% endif %}
+<div class="container pt-3">
+    <div class="row">
+        <div class="heading col-lg-9">
+            <div class="thumbneil">
+                <img src="{{Tour.thumbnail.url}}" alt="thumbnail">
+            </div>
+            <div class="headingCon">
+                <a href="#">Agency Id : {{Tour.seller.userAgency.agency_Id}}</a>
+                <h1>{{Tour.tourHeading}}</h1>
+                <div class="tourType">
+                    <h4>({{Tour.tour_type}})</h4>
+                    <h4>The Code is on line number 1036</h4>
+                </div>
+                <div class="location">
+                    <span>{{Tour.startingLocation}}</span>
+                    <p style="margin: 0 4px;">to</p>
+                    <span>{{Tour.endLocation}}</span>
+                </div>
+                <div class="price">
+                    <h4>Serial Price</h4>
+                    <p>
+                        <span>{{Tour.price}}&#8377/people </span>
+                        <!--
+                        <span>$650</span>
+                        <span>32% off</span>
+                        -->
+                        <span>Hurry only {{Tour.maximum_people}} seats left</span>
+                    </p>
+                </div>
+                <div class="review">
+                    <span>4.5 <i class="fa fa-star" aria-hidden="true"></i></span>
+                    <!-- <a href="#reviews">click here for reviews</a> -->
+                </div>
+                <!--Special Offer -->
+                <!--
+                <div class="specialOffer">
+                    <h5>Special Offer</h5>
+                    <p>Not Available</p>
+                </div>
+                -->
+                <!--Special Offer ends -->
+                <div class="dates">
+                    <span class="text-danger">Last Booking Date : {{Tour.last_booking_date}}</span>
+                    <!--
+                    <span class="text-success">You Can Cancel Within : 22/12/2020</span>
+                    -->
+                </div>
+                <div class="interested">
+                    <input type="checkbox" name="features" id="features" value="premium">
+                    {% if request.user.is_authenticated and request.session.access_type == 'traveller' %}
+                    <span class="SaveBtn" id="save{{Tour.tourId}}" href="#" data-catid="{{ Tour.tourId }}">
+                        <img src="https://img.icons8.com/ios-filled/26/000000/add-bookmark.png"/>&nbsp;
+                        <p>Save</p>
+                    </span>
+                    {% endif %}
+                    <span class="ShareBtn">
+                        <label for="features">
+                            <img src="https://img.icons8.com/metro/26/000000/forward-arrow.png"/>&nbsp;Share
+                        </label>
+                    </span>
+                </div>
+                <div class="ShareBtns">
+                    <ul class="featured" style="--length: 5;display:flex;">
+                        <li>
+                            <a href="#" id="ShareOnWapp" data-action="share/whatsapp/share" style="--index: 0;">
+                                <img src="{%static 'img/whatsapp.gif'%}" height="46px"/>
+                                Whatsapp
+                            </a>
+                            <a href="#" target="_blank" id="ShareOnFB" style="--index: 2;">
+                                <img src="{%static 'img/facebook.gif'%}" height="46px"/>
+                                Facebook
+                            </a>
+                            <a style="--index: 4;" onclick="copyUrl();">
+                                <img src="https://img.icons8.com/color/46/000000/copy--v2.png"/>
+                                Copy Url
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" id="ShareOnTele" style="--index: 1;">
+                                <img src="{%static 'img/telegram.gif'%}" height="46px"/>
+                                Telegram
+                            </a>
+                            
+                            <a href="#" id="ShareByEmail" target="_blank" style="--index: 3;">
+                                <img src="{%static 'img/gmail.gif'%}" height="44px"/>
+                                Email
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copiedAlert">
+            The URL has been copied!
+        </div>
+        <div class="col-lg-3">
+            <div class="suggestedTour">
+                <h3>Suggested Similar Tours</h3>
+                <div class="allst">
+                    <div class="st">
+                        <div class="imgbg">
+                            <img src="{% static 'img/Darjelling.jpg' %}" >
+                        </div>
+                        <a href="#">Dajeeling Tour</a>
+                    </div>
+                    <div class="st">
+                        <div class="imgbg">
+                            <img src="{% static 'img/goa.jpg' %}" >
+                        </div>
+                        <a href="#">Goa Beach</a>
+                    </div>
+                    <div class="st">
+                        <div class="imgbg">
+                            <img src="{% static 'img/Jaipur.jpg' %}" >
+                        </div>
+                        <a href="#">Pink City Jaipur</a>
+                    </div>
+                    <div class="st">
+                        <div class="imgbg">
+                            <img src="{% static 'img/Ladaka.jpg' %}" >
+                        </div>
+                        <a href="#">Ladaka Bike Trip </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><br><br>
+<div class="container">
+    <div class="row mainContent">
+        <div class="col-lg-6 tourDetails">
+            <div class="tdnavs">
+                <div class="tdnav active tdnav1" onclick="changeTD(1);">
+                    <p>Description</p>
+                    <p>[Day/Day]</p>
+                </div>
+                <div class="tdnav tdnav2" onclick="changeTD(2);">
+                    <p>Other</p>
+                    <p>Details</p>
+                </div>
+            </div>
+            <div class="tdcons">
+                <div class="tdcon active tdcon1">
+                </div>
+                <div class="tdcon tdcon2">
+                    <button class="accordion">Tour Inclusive</button>
+                    <div class="panel">
+                        <p>{{Tour.inclusive | linebreaksbr}}</p>
+                    </div>
+                    <button class="accordion">Tour Exclusive</button>
+                    <div class="panel">
+                        <p>{{Tour.exclusive | linebreaksbr}}</p>
+                    </div>
+                    <button class="accordion">Tour Overview</button>
+                    <div class="panel">
+                        <p>{{Tour.overview | linebreaksbr}}</p>
+                    </div>
+                    <button class="accordion">Tour Highlight</button>
+                    <div class="panel">
+                        <p>{{Tour.highlight | linebreaksbr}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="btns">
+                <a href="/tour/booktour/{{Tour.tourId}}/{{Tour.seller.userAccess.agentId}}">Book Now</a>
+                <a>
+                    <button type="button" class="btn" data-toggle="modal" data-target="#exampleModalCenter">
+                        Send Your Query
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-6 tourImages">
+            <div class="row1">
+                <p>Tour Images</p>
+                {% for i in images %}
+                <div class="column">
+                    <img src="{{i}}" data-index="{{forloop.counter}}" class="hover-shadow" />
+                </div>
+               {% endfor %}
+
+            </div>
+            <div id="myModal" class="modal">
+                <span class="close cursor" onclick="closeModal()">&times;</span>
+                <div class="modal-content">
+                    {% for i in images %}
+                    <div class="mySlides">
+                        <div class="numbertext">{{ forloop.counter }} / {{ images|length }}</div>
+                        <img src="{{i}}" style="width:100%;height: 100%;">
+                    </div>
+                    {% endfor %}
+                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                    <div class="modalColumn">
+                        {% for i in images %}
+                        <div class="column">
+                            <img class="demo" src="{{i}}" data-index="{{forloop.counter}}" alt="Nature" 
+                             style="width:100%;height: 100%;padding: 5px;">
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="btns2">
+            <a href="/tour/booktour/{{Tour.tourId}}/{{Tour.seller.userAccess.agentId}}">Book Now</a>
+            <a>
+                <button type="button" class="btn" data-toggle="modal" data-target="#exampleModalCenter">
+                    Send Your Query
+                </button>
+            </a>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <form class="modal-content" onsubmit="return checkQuery();" method="POST" action='/tour/tour-query/{{Tour.tourId}}/{{Tour.seller.userAccess.agentId}}'>
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Have any query? Ask us...</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" id="checkQueryName" class="form-control" required placeholder="Your Name" name="name">
+                    <input type="email" id="checkQueryEmail" class="form-control" required placeholder="Your Email Address" name="email">
+                    <input type="text" id="checkQueryNum" class="form-control" required placeholder="Your Contact No." name="phone">
+                    <input type="text" id="checkQuerSub" class="form-control" required placeholder="Subject" name="subject">
+                    <textarea class="form-control mb-1" id="checkQueryMsg" minlength="10" maxlength="400" required style="resize: none;" placeholder="Your Query/Doubt" name="query"></textarea>
+                    <span class="errorMsg text-danger"></span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Send Query</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.js" 
+    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous">
+</script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> -->
+<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script> -->
+<script type="text/javascript">
+    $(function(){
+        var wishlist = "{{wishlist}}";
+        var catid = $('.SaveBtn').attr("data-catid");
+        if(wishlist=='True'){
+            document.querySelector('.SaveBtn p').innerHTML='Added';
+            document.querySelector('.SaveBtn').style.backgroundColor='rgb(40,167,69)';
+            document.querySelector('.SaveBtn').style.color='white';
+        }
+    });
+</script>
+<script type="text/javascript">
+    $(function(){
+        var publish="{{Preview | linebreaksbr}}";
+        console.log(publish);
+        if(publish=='true'){
+            $('.SaveBtn').addClass('disable-click');
+            $('.ShareBtn').addClass('disable-click');
+            $('.btns a').addClass('disable-click');
+            $('.btns2 a').addClass('disable-click');
+        }
+        var sd="{{Tour.startDate|date:'c'}}";
+        var d1=sd.substr(0,4);
+				var d2=sd.substr(5,2);
+				var d3=sd.substr(8,2);
+				sd=d1+'/'+d2+'/'+d3;
+		sd = new Date(sd);
+		var ed="{{Tour.endDate|date:'c'}}";
+        var d11=ed.substr(0,4);
+				var d12=ed.substr(5,2);
+				var d13=ed.substr(8,2);
+				ed=d11+'/'+d12+'/'+d13;
+		ed = new Date(ed);
+		var d = ed.getTime() - sd.getTime();
+        var x = d / (1000 * 3600 * 24) + 1;
+        var ggg=x;
+        
+        var temp = "{{description | linebreaksbr}}";
+        var tem= temp.replace(/<br\s*\/?>/gi,'\n')
+		var d2 = tem.split('@@@@')
+		var ui=[]
+        for(let j=0;j<ggg;j++){
+			x= d2[j].split('$$$$');
+			ui.push(x[0]);
+			ui.push(x[1]);
+		}
+		temp=temp.split(', ');
+        var tourdesc=document.querySelector('.tourdesc');
+        let ii=0;
+        for(let i=0;i<ggg*2;i+=2,ii+=1){
+            var accordion=document.createElement('button');
+            accordion.type='button';
+            accordion.classList.add('accordion')
+            var day='Day '+(ii+1);
+            day=document.createTextNode(day);
+            accordion.appendChild(day);
+            var h5=document.createElement('h5');
+            var h5node=document.createTextNode(ui[i]);
+            h5.appendChild(h5node);
+            var span=document.createElement('span');
+            span.style.wordBreak='break-word';
+            var pnode=document.createTextNode(ui[i+1]);
+            span.appendChild(pnode);
+            var panel=document.createElement('div');
+            var panelp=document.createElement('p');
+            panelp.appendChild(h5);
+            panelp.appendChild(span);
+            panel.appendChild(panelp);
+            panel.classList.add('panel');
+            var tdcon1=document.querySelector('.tdcon1');
+            tdcon1.appendChild(accordion);
+            tdcon1.appendChild(panel);
+        }
+    })
+    
+    $(function(){
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.maxHeight) {
+                    panel.style.maxHeight = null;
+                    panel.style.overflow='hidden';
+                    panel.style.border='none';
+                } else {
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                    panel.style.overflow='visible';
+                    panel.style.border='1px solid #444';
+                } 
+            });
+        }
+    });
+
+    $(function(){
+        $('.row1 .column img').click(function(){
+            var index=$(this).data("index");
+            openModal();
+            currentSlide(index);
+        });
+        $('img.demo').click(function(){
+            var index=$(this).data("index");
+            currentSlide(index);
+        });
+    });
+
+    function changeTD(x){
+        if(x==2){
+            $('.tdnav1').removeClass('active');
+            $('.tdnav2').addClass('active');
+            $('.tdcon1').removeClass('active');
+            $('.tdcon2').addClass('active');
+        }
+        else if(x==1){
+            $('.tdnav2').removeClass('active');
+            $('.tdnav1').addClass('active');
+            $('.tdcon2').removeClass('active');
+            $('.tdcon1').addClass('active');
+        }
+    }
+
+    function openModal() {
+        document.getElementById("myModal").style.display = "block";
+    }
+    function closeModal() {
+        document.getElementById("myModal").style.display = "none";
+    }
+    var slideIndex = 1;
+    showSlides(slideIndex);
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+    function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("demo");
+        if (n > slides.length) {slideIndex = 1}
+        if (n < 1) {slideIndex = slides.length}
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex-1].style.display = "block";
+        dots[slideIndex-1].className += " active";
+    }
+
+    function myFunction(x) {
+        if (x.matches) { 
+            hello();
+        }
+        else{
+            notHello();
+        }
+    }
+    var xxxx = window.matchMedia("(max-width: 700px)");
+    myFunction(xxxx);
+    xxxx.addListener(myFunction);
+    
+    function hello(){
+        var tourImages=document.querySelector('.tourImages');
+        var mainContent=document.querySelector('.mainContent');
+        mainContent.insertBefore(tourImages, mainContent.childNodes[0]);
+    }
+    
+    function notHello(){
+        var mainContent=document.querySelector('.mainContent');
+        var tourDetails=document.querySelector('.tourDetails');
+        mainContent.insertBefore(tourDetails, mainContent.childNodes[0]);
+    }
+
+    function checkQuery(){
+        var checkQueryName=document.getElementById('checkQueryName').value;
+        var checkQueryEmail=document.getElementById('checkQueryEmail').value;
+        var checkQueryMsg=document.getElementById('checkQueryMsg').value;
+        var checkQueryNum=document.getElementById('checkQueryNum').value;
+        var errormsg=document.querySelector('.errorMsg');
+        var msg=[];
+        var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+        res = reg.test(checkQueryEmail);
+        if(res==false){
+            msg.push("Enter Proper Email ");
+        }
+        if(checkQueryNum!=Number(checkQueryNum)){
+            msg.push("Your phone must be number ");
+        }
+        if(checkQueryNum.length!=10){
+            msg.push("Please Enter a Proper Number ");
+        }
+        if(msg.length>0){
+            errormsg.innerHTML=msg.join(", \n");
+            errormsg.style.lineHeight='1.2';
+            return false;
+        }
+        return true;
+    }
+    $('.errorMsg').click(function(){
+        document.querySelector('.errorMsg').innerHTML=null;
+    });
+
+    $(function(){
+        var sd="{{Tour.startDate|date:'c'}}";
+		var d1=sd.substr(0,4);
+		var d2=sd.substr(5,2);
+		var d3=sd.substr(8,2);
+        sd=d2+'/'+d3+'/'+d1;
+        var ed="{{Tour.endDate|date:'c'}}";
+		var d1=ed.substr(0,4);
+		var d2=ed.substr(5,2);
+		var d3=ed.substr(8,2);
+        ed=d2+'/'+d3+'/'+d1;
+        var date='Starting Date : '+sd+' || Ending Date : '+ed;
+        document.querySelector('.tourType h4:nth-child(2)').innerHTML=date;
+    });
+
+    $("input[name=features]").change(function(){
+        if($('input[name=features]').is(':checked')){
+            $('.ShareBtns').addClass('active');
+        }
+        else{
+            $('.ShareBtns').removeClass('active');
+        }
+    });
+
+    $('body').click(function(event){
+        if ($('input[name=features]').is(':checked')) {
+            $('input[name=features]').click();
+        }
+    });
+    /*
+    $('.SaveBtn').on('click',function(){
+        if($('.SaveBtn').css('background-color')=='rgb(206, 218, 255)'){
+            document.querySelector('.SaveBtn').style.backgroundColor='#5ad15a';
+            document.querySelector('.SaveBtn p').innerHTML='Saved';
+        }
+        else{
+            document.querySelector('.SaveBtn').style.backgroundColor='#cedaff';
+            document.querySelector('.SaveBtn p').innerHTML='Save';
+        }
+    });
+    */
+    $(function(){
+        var TourLink=window.location.href;
+        var TourName='Check';
+        var ShareOnWapp='whatsapp://send?text='+TourLink;
+        var ShareOnFB="//www.facebook.com/sharer/sharer.php?u="+TourLink+"&quote=Check This";
+        var ShareOnTele="tg://msg_url?url="+TourLink+"&text=CheckThis";
+        var ShareByEmail='//mail.google.com/mail/?view=cm&fs=1&tf=1&to=&su='+
+                        'Check This Tour'+'&body='+
+                        TourLink+
+                        '&ui=2&tf=1&pli=1';
+        $('#ShareOnWapp').attr('href',ShareOnWapp);
+        $('#ShareOnFB').attr('href',ShareOnFB);
+        $('#ShareOnTele').attr('href',ShareOnTele);
+        $('#ShareByEmail').attr('href',ShareByEmail);
+    });
+
+    function copyUrl(){
+        var copyId=window.location.href;
+        var $inp=$("<input>");
+        $("body").append($inp);
+        $inp.val(copyId);
+        $inp.select();
+        // $inp.setSelectionRange(0, 99999);
+        document.execCommand("copy");
+        $inp.remove();
+        document.querySelector('.copiedAlert').style.display='flex';
+        setTimeout(function(){
+            document.querySelector('.copiedAlert').style.display='none';
+        }, 2000);
+    }
+
+</script>
+
+<script type="text/javascript">
+    $('.SaveBtn').click(function(e){
+        // e.preventDefault();
+        if($(this).css('background-color')=='rgb(206, 218, 255)'){
+            console.log('added');
+            var catid;
+            catid = $(this).attr("data-catid");
+            console.log(catid);
+            $.ajax({
+                'url': "/traveller/wishlist",
+                'type':"POST",
+                'data':{
+                    post_id: catid
+                },
+                'success': function( data ) 
+                {
+                    document.querySelector('.SaveBtn').style.backgroundColor='rgb(40,167,69)';
+                    document.querySelector('.SaveBtn p').innerHTML='Added';
+                    document.querySelector('.SaveBtn').style.color='white';
+                }
+            });
+        }
+        else{
+            console.log('removed');
+            var catid;
+            catid = $(this).attr("data-catid");
+            console.log(catid);
+            $.ajax({
+                'url': "/traveller/wishlist",
+                'type':"POST",
+                'data':{
+                    post_id: catid
+                },
+                'success': function( data ) 
+                {
+                    document.querySelector('.SaveBtn').style.backgroundColor='rgb(206, 218, 255)';
+                    document.querySelector('.SaveBtn').style.color='black';
+                    document.querySelector('.SaveBtn p').innerHTML='Save';
+                }
+            });
+        }
+        
+    });
+</script>
+{% endblock body %}

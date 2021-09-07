@@ -1,0 +1,259 @@
+{% extends 'basetemplate.html' %}
+{% load static %}
+{% block stylesheets %}
+<style>
+    
+	.sidebar {
+		min-width: 250px;
+        max-width: 250px;
+		position: sticky;
+		height: 100%;
+		padding-top: 20px;
+		top: 60px;
+		left: 0;
+		z-index: 1;
+		border-radius: 5px;
+	}
+    .content{
+        margin-left: 0;
+    }
+	.sidebar ul {
+		margin: 10px;
+	}
+
+	.sidebar ul li {
+		height: 70px;
+		display: flex;
+		align-items: center;
+		font-size: 20px;
+        border-radius: 4px;
+        padding-left: 15px;
+	}
+
+	.sidebar ul li a {
+		color: black;
+	}
+
+	.sidebar ul li:hover {
+		background-image: linear-gradient(to top, #00c6fb 0%, #2debc5 50%);
+	}
+
+	.sidebar ul li img {
+		width: 35px;
+		height: 35px;
+	}
+	main{
+		width: 100%;
+		overflow-x: hidden;
+		display: contents;
+	}
+	.openNavs{
+		display: none;
+	}
+	@media screen and (max-width: 850px) {
+		main{
+			margin-left: -30px;
+		}
+        .sidebar {
+			z-index: 1000;
+			left: 50%;
+			overflow: hidden;
+			top: 50%;
+            padding-top: 0;
+            position: fixed;
+			transform-origin: left top;
+			width: 100%;
+            /* max-height: 0%; */
+			height: 100%;
+			/* max-width: 0%; */
+			transition: 0.3s;
+			transform: scale(0);
+			background: rgb(186, 224, 245);
+			background: linear-gradient(90deg, rgba(186, 224, 245, 1) 21%, rgba(221, 221, 237, 1) 57%, rgba(143, 228, 245, 1) 100%);
+		}
+		.sidebar.opend{
+			left: 0;
+			top: 0;
+			max-width: 100%;
+			max-height: 100%;
+			transform: scale(1);
+		}
+        .nav-link{
+            padding: .5rem 0.5rem;
+        }
+		.sidebar ul {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-flow: column;
+            margin: 10px 0;
+			height: 95%;
+		}
+		.sidebar ul li:hover {
+			background-image: none;
+		}
+        .sidebar ul li{
+            padding-left: 0;
+        }
+		.sidebar ul li a {
+			font-size: 26px;
+			font-weight: 500;
+			position: relative;
+		}
+		.sidebar ul li a::before{
+			content: '';
+			width: 100%;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			height: 3px;
+			background-color: black;
+			max-width: 0px;
+			transition: 0.2s;
+		}
+		.sidebar ul li a:hover::before{
+			max-width: 100%;
+		}
+        .sidebar ul li {
+			margin-left: 5px;
+			display: flex;
+			flex-flow: row;
+			align-items: center;
+			justify-content: center;
+			transition: 0.3s;
+		}
+        .sidebar ul li:nth-child(even){
+			transform: translateX(-150%);
+		}
+        .sidebar ul li:nth-child(odd){
+			transform: translateX(150%);
+		}
+        .sidebar ul{
+			flex-wrap: wrap;
+        }
+
+		.sidebar ul li img {
+			display: none;
+		}
+		.openNavs{
+			cursor: pointer;
+			display: flex;
+			flex-flow: column;
+			position: sticky;
+			top: 70px;
+			left: 30px;
+			width: 30px;
+			height: 20px;
+			justify-content: space-between;
+			z-index: 1001;
+		}
+		.openNavs span{
+			width: 33px;
+			height: 4px;
+			background-color: #000000;
+			transition: 0.3s;
+		}
+		.openNavs span:nth-child(2){
+			width: 25px;
+		}
+    }
+	@media screen and (min-width: 850px) {
+		.sidebar ul li{
+			transform: translateX(0%)!important;
+		}
+	}
+</style>
+{% block travelagency_stylesheets %}
+
+{% endblock travelagency_stylesheets %}
+{% endblock stylesheets %}
+{% block body%}
+<div class="d-flex" style="margin-top: 60px;">
+<div onclick="openNavs();" class="openNavs">
+	<span class="openNavspan1"></span>
+	<span class="openNavspan2"></span>
+</div>
+<div class="sidebar">
+    <ul>
+		<li class="nav-item" style="cursor: pointer;" 
+			onclick="window.location.href='/travelagency/myagency/{{request.user.userAccess.agentId}}'">
+            <img src="{% static 'travelagency_img/calendar.png' %}">
+            <a class="nav-link" href="/travelagency/myagency/{{request.user.userAccess.agentId}}">Dashboard</a>
+        </li>
+        <li class="nav-item" style="cursor: pointer;" 
+			onclick="window.location.href='/travelagency/agencytours/{{request.user.id}}/{{request.user.userAccess.agentId}}'">
+            <img src="{% static 'travelagency_img/map.png' %}">
+            <a class="nav-link "
+                href="/travelagency/agencytours/{{request.user.id}}/{{request.user.userAccess.agentId}}">Agency
+                Tours</a>
+        </li>
+        <li class="nav-item" style="cursor: pointer;" 
+			onclick="window.location.href='#'">
+            <img src="{% static 'travelagency_img/clipboard.png' %}">
+            <a class="nav-link" href="#">Agency Earning</a>
+        </li>
+        <li class="nav-item" style="cursor: pointer;" 
+			onclick="window.location.href='/travelagency/ongoing-tours/{{request.user.userAccess.agentId}}'">
+            <img src="{% static 'travelagency_img/picture.png' %}">
+            <a class="nav-link" href="/travelagency/ongoing-tours/{{request.user.userAccess.agentId}}">Ongoing Tour</a>
+        </li>
+        <li class="nav-item" style="cursor: pointer;" 
+			onclick="window.location.href='/travelagency/booking-history/{{request.user.userAccess.agentId}}'">
+            <img src="{% static 'travelagency_img/job.png' %}">
+            <a class="nav-link" href="/travelagency/booking-history/{{request.user.userAccess.agentId}}">Booking History</a>
+        </li>
+        <li class="nav-item" style="cursor: pointer;" 
+			onclick="window.location.href='/travelagency/upcoming-tours/{{request.user.userAccess.agentId}}'">
+            <img src="{% static 'travelagency_img/upcoming.png' %}">
+            <a class="nav-link" href="/travelagency/upcoming-tours/{{request.user.userAccess.agentId}}">Upcoming Tours</a>
+		</li>
+		<li class="nav-item" style="cursor: pointer;" 
+			onclick="window.location.href='/travelagency/notifications'">
+			<img src="{% static 'travelagency_img/notification.png' %}">
+			<a class="nav-link" href="/travelagency/notifications">Incoming Order</a>
+		</li>
+    </ul>
+</div>
+<main>
+{% block travelagency_body %}
+
+{% endblock travelagency_body %}
+</main>
+</div>
+<script>
+	function openNavs(){
+		// console.log($('.sidebar').css('transform'))
+		if($('.sidebar').css('transform')=='matrix(0, 0, 0, 0, 0, 0)'){
+			// console.log(document.querySelectorAll('.sidebar ul li'));
+			// console.log(document.querySelector('.openNavs span:nth-child(1)'));
+			document.querySelector('.sidebar').classList.add('opend');
+			document.querySelector('.openNavspan1').style.transform='rotate(45deg) translate(11px,11px)';
+			document.querySelector('.openNavspan1').style.width='25px';
+			document.querySelector('.openNavspan2').style.transform='rotate(-45deg)';
+			setTimeout(function(){
+				document.querySelectorAll('.sidebar ul li').forEach(function(el){
+					el.style.transform='translateX(0%)';
+				});
+			}, 300);
+		}
+		else{
+			document.querySelector('.sidebar').classList.remove('opend');
+			document.querySelectorAll('.sidebar ul li:nth-child(odd)').forEach(function(el){
+				el.style.transform='translateX(150%)'
+			});
+			document.querySelectorAll('.sidebar ul li:nth-child(even)').forEach(function(el){
+				el.style.transform='translateX(-150%)'
+			});
+			document.querySelector('.openNavspan1').style.transform='rotate(0deg) translate(0px,0px)';
+			document.querySelector('.openNavspan1').style.width='33px';
+			document.querySelector('.openNavspan2').style.transform='rotate(0deg)';
+		}
+	}
+	var mediaQuery = window.matchMedia("(min-width: 850px)");
+	if (mediaQuery.matches) {
+		document.querySelectorAll('.sidebar ul li').forEach(function(el){
+			el.style.transform='translateX(0%)'
+		});
+	}
+</script>
+{% endblock body %}

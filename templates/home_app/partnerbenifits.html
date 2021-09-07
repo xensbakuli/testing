@@ -1,0 +1,419 @@
+{% extends 'basetemplate.html' %}
+{% load static %}
+{% block stylesheets %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
+<link rel="stylesheet" href="{% static 'homeapp_css/benefit.css'%}">
+
+{% endblock stylesheets %}
+
+{% block body %}
+<!-- Benifits of joining us -->
+<main>
+<div class="requestCall">
+    <span>Request a Call</span>
+</div>
+<section id="heading">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="headingCard" data-tilt data-tilt-max="5">
+                    <h1>TRAVWEB</h1>
+                    <p>We make your <strong class="spanstrong">Travel</strong> easy</p>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Amet accusantium, officiis incidunt
+                        et ullam repudiandae rerum ipsa ratione consectetur rem quod in optio maiores consequuntur 
+                        dolor error, alias odio dignissimos!
+                    </p>
+                    <div class="btns">
+                        <button type="button"><a href="/accounts/seller/account/signup"><p style="margin: 0;">Sign Up</p></a></button>
+                        <button type="button"><a href="/terms-and-condition"><p style="margin: 0;">T&C</p></a></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<br>
+<section id="values">
+    <div class="container">
+        <div class="row">
+            <h1 class="col-lg-12 pl-0">Our <span class="spanstrong">Values</span></h1>
+            <div class="col-lg-7">
+                <div class="row mr-2">
+                    <div class="col-md-6">
+                        <h4>Honesty</h4>
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam ex vel eveniet
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>Integrity</h4>
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam ex vel eveniet
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>Trust</h4>
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam ex vel eveniet
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>Teamwork</h4>
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam ex vel eveniet
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <h4>You Are Not Alone!</h4>
+                <div class="row ml-3">
+                    <div class="col-sm-6">
+                        <h1>45</h1>
+                        Agency Registered
+                    </div>
+                    <div class="col-sm-6">
+                        <h1>205</h1>
+                        Tourists Joined
+                    </div>
+                    <div class="col-sm-6">
+                        <h1>103</h1>
+                        Delevered in Different Cities
+                    </div>
+                    <div class="col-sm-6">
+                        <h1>4501+</h1>
+                        Tours Booked
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<br><br><br>
+<h1 id="testihead">Reasons to chose us...</h1><br>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 featuresBg">
+            <h2>1. Our <strong class="spanstrong">Special</strong> Features</h2>
+            <div class="feature">
+                <div class="imgbg"><img src="{% static 'homeapp_css/dashboard.svg'%}" alt=""></div>
+                <p>You will get a dashboard to visualize and keep track everything</p>
+            </div>
+            <div class="feature">
+                <div class="imgbg"><img src="{% static 'homeapp_css/transaction.svg'%}" alt=""></div>
+                <p>You will get a transaction record book</p>
+            </div>
+        </div>
+        <div class="col-lg-6 clockbg">
+            <div class="imgbg">
+                <div class="clock">
+                    <div class="outer-clock-face">
+                      <div class="marking marking-one"></div>
+                      <div class="marking marking-two"></div>
+                      <div class="marking marking-three"></div>
+                      <div class="marking marking-four"></div>
+                      <div class="inner-clock-face">
+                        <div class="hand hour-hand"></div>
+                        <div class="hand min-hand"></div>
+                        <div class="hand second-hand"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <h2>2. We are <strong class="spanstrong">Available</strong> 24 x 7 hours</h2>
+        </div>
+    </div>
+</div>
+<br><br>
+<section id="stats">
+
+    <div class="content-box-md">
+
+        <div class="container">
+
+            <div class="row">
+                
+                <div class="col-md-12 wow slideInLeft">
+
+                    <div class="vertical-heading">
+                        <h2><br>4. Getting best services <br>at <strong class="spanstrong">Minimal </strong>cost! <br>ain't it great?</h2>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row wow fadeInUp" data-wow-duration="2s">
+
+                <div class="col-md-3 col-sm-3 col-xs-6">
+
+                    <!-- Stats Item 01 -->
+                    <div class="stats-item text-center">
+                        <i class="fa fa-bar-chart"></i>
+                        <span>
+                            <h3 class="counter1">230</h3><h3>$</h3>
+                        </span>
+                        <h5>Free Account Creation</h5>
+                        <p>Here create your free account, and get growing your business</p>
+                    </div><br>
+
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-6">
+
+                    <div class="stats-item text-center">
+                        <i class="fa fa-trophy"></i>
+                        <span>
+                            <h3 class="counter3">500</h3><h3>$</h3>
+                        </span>
+                        <h5>Free stuff training</h5>
+                        <p>As a bonus you get free stuff training</p>
+                    </div><br>
+
+                </div>
+            
+                <div class="col-md-3 col-sm-3 col-xs-6">
+
+                    <div class="stats-item text-center">
+                        <i class="fa fa-codepen"></i>
+                        <span>
+                            <h3 class="counter2">330</h3><h3>$</h3>
+                        </span>
+                        <h5>0 maintain cost</h5>
+                        <p>You don't need to worry about maintaining, we will do it for absolutely free</p>
+                    </div><br>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<br><br>
+<section id="testimonials">
+    <h1 id="testihead">4. Our <strong class="spanstrong">Customers</strong> love us <br>
+        <span style="font-size: 18px;position: absolute;transform: translateX(-48%);">We are what our customers say</span>
+    </h1><br>
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="review row">
+                    <div class="reviewProfile col-md-6">
+                        <div class="rCircle1"></div>
+                        <div class="rCircle2"></div>
+                        <div class="rCircle3">
+                            <img src="{%static 'img/c1.jpg'%}" alt="Agency Thumneil">
+                        </div>
+                        <div class="rCircle4"></div>
+                        <div class="rName">Ayan Koley</div>
+                        <div class="rPost">Founder, Koley Tours</div>
+                    </div>
+                    <div class="reviewCon col-md-6">
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Amet accusantium, officiis incidunt
+                        et ullam repudiandae rerum ipsa ratione consectetur rem quod in optio maiores consequuntur 
+                        dolor error, alias odio dignissimos!
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate deserunt labore 
+                        cupiditate, non harum dolores. Porro ab, quia doloribus voluptas atque aspernatur ullam 
+                        iusto pariatur. Inventore quae eligendi exercitationem nemo.
+                    </div>
+                    <i class="fa fa-quote-left" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="review row">
+                    <div class="reviewProfile col-md-6">
+                        <div class="rCircle1"></div>
+                        <div class="rCircle2"></div>
+                        <div class="rCircle3">
+                            <img src="{%static 'img/c1.jpg'%}" alt="Agency Thumneil">
+                        </div>
+                        <div class="rCircle4"></div>
+                        <div class="rName">Ayan Koley</div>
+                        <div class="rPost">Founder, Koley Tours</div>
+                    </div>
+                    <div class="reviewCon col-md-6">
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Amet accusantium, officiis incidunt
+                        et ullam repudiandae rerum ipsa ratione consectetur rem quod in optio maiores consequuntur 
+                        dolor error, alias odio dignissimos!
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate deserunt labore 
+                        cupiditate, non harum dolores. Porro ab, quia doloribus voluptas atque aspernatur ullam 
+                        iusto pariatur. Inventore quae eligendi exercitationem nemo.
+                    </div>
+                    <i class="fa fa-quote-left" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="review row">
+                    <div class="reviewProfile col-md-6">
+                        <div class="rCircle1"></div>
+                        <div class="rCircle2"></div>
+                        <div class="rCircle3">
+                            <img src="{%static 'img/c1.jpg'%}" alt="Agency Thumneil">
+                        </div>
+                        <div class="rCircle4"></div>
+                        <div class="rName">Ayan Koley</div>
+                        <div class="rPost">Founder, Koley Tours</div>
+                    </div>
+                    <div class="reviewCon col-md-6">
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Amet accusantium, officiis incidunt
+                        et ullam repudiandae rerum ipsa ratione consectetur rem quod in optio maiores consequuntur 
+                        dolor error, alias odio dignissimos!
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate deserunt labore 
+                        cupiditate, non harum dolores. Porro ab, quia doloribus voluptas atque aspernatur ullam 
+                        iusto pariatur. Inventore quae eligendi exercitationem nemo.
+                    </div>
+                    <i class="fa fa-quote-left" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+</section>
+
+<section class="online mt-5">
+    <div class="container">
+        <h1 id="testihead">
+            5. <strong class="spanstrong">Best</strong> way to put your business online
+        </h1><br>
+        <div class="row">
+            <div class="col-lg-6 onlinel">
+                <div class="onlineHead">
+                    <i class="fa fa-coffee" aria-hidden="true"></i>
+                    <h2>Online Presence & Reachability</h2>
+                </div>
+                <div class="onlineBody">
+                    <p>In today's era it's a nessecity to have online presence for a business. With us you are
+                        getting a online platform where we will do the marketting for you and get you customers.
+                        Let's put your businesss online with us and grow together!
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-6 onliner">
+                <div class="onlineHead">
+                    <i class="fa fa-wpexplorer" aria-hidden="true"></i>
+                    <h2 class="font-weight-bold">Look Forward</h2>
+                </div>
+                <div class="onlineBody">
+                    <p>
+                        Travmaks is a Travel platform where you can upload your tour and get customers. It will
+                        cost you <span class="text-danger font-weight-bold">0</span> rupees to start. We will charge you 
+                        the minimal amount as 7 to 10% only when you get customers from our platform. For you It's 
+                        all profit and no loss plus you get a chance to increase you customer percentage. So let's
+                        look forward and register your agency ASAP.                
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</main>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js" 
+    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" 
+    crossorigin="anonymous">
+</script>
+<script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="//geodata.solutions/includes/countrystatecity.js"></script>
+<script src="https://unpkg.com/tilt.js@1.2.1/dest/tilt.jquery.min.js"></script>
+
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+<script>
+$(function(){
+    var swiper = new Swiper('.swiper-container', {
+        spaceBetween: 30,
+        effect: 'slide',
+        loop:true,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+
+    let x=230;
+    let y=500;
+    let z=330;
+    $(window).scroll(function(){         
+        var h=$(window).scrollTop();
+        var th=$('#testimonials').height();
+        var hh=$('#heading').height();
+        th=th/2+hh;
+        if(h>th && x>229){
+            fun1();
+    }
+    })
+
+    const tilt = $('.js-tilt').tilt();
+    // Destroy instance
+    tilt.tilt.destroy.call(tilt);
+
+    // Get values of instance
+    tilt.tilt.getValues.call(tilt); // returns [{},{},etc..]
+
+    // Reset instance
+    tilt.tilt.reset.call(tilt);
+
+    function fun1(){
+        const counter1=document.querySelector('.counter1');
+        const counter2=document.querySelector('.counter2');
+        const counter3=document.querySelector('.counter3');
+        setInterval(update3,27);
+        setInterval(update2,42);
+        setInterval(update1,50);
+        function update1(){
+            counter1.innerHTML=x;
+            if(x>0){
+                x--;
+            }
+        }
+        function update2(){
+            counter2.innerHTML=x;
+            if(z>0){
+                z--;
+            }
+        }
+        function update3(){
+            counter3.innerHTML=y;
+            if(y>0){
+                y--;
+            }
+        }
+    }
+})
+
+</script>
+<script>
+    const secondHand = document.querySelector('.second-hand');
+    const minsHand = document.querySelector('.min-hand');
+    const hourHand = document.querySelector('.hour-hand');
+
+    function setDate() {
+        const now = new Date();
+
+        const seconds = now.getSeconds();
+        const secondsDegrees = ((seconds / 60) * 360) + 90;
+        secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
+
+        const mins = now.getMinutes();
+        const minsDegrees = ((mins / 60) * 360) + ((seconds/60)*6) + 90;
+        minsHand.style.transform = `rotate(${minsDegrees}deg)`;
+
+        const hour = now.getHours();
+        const hourDegrees = ((hour / 12) * 360) + ((mins/60)*30) + 90;
+        hourHand.style.transform = `rotate(${hourDegrees}deg)`;
+    }
+
+    setInterval(setDate, 1000);
+
+    setDate();
+</script>
+{% endblock body %}

@@ -1,0 +1,138 @@
+{% extends 'travelagency/travelagency_basetemplate.html' %}
+{% load static %}
+
+{% block travelagency_stylesheets %}
+<style>
+    /* body{
+   background: linear-gradient(to right, #000428, #004e92);  
+     }*/
+
+    th {
+        background-color: #4b6cb7;
+        color: white;
+    }
+
+    tr:hover {
+        background-color: #4d4dff;
+        color: #fff;
+    }
+
+    .invoice {
+        position: relative;
+        background: #fff;
+        border: 1px solid #f4f4f4;
+        padding: 20px;
+        margin: 10px 10px;
+    }
+
+    .page-header {
+        margin: 10px 0 20px 0;
+        font-size: 22px;
+    }
+
+    .btn-cool-blues {
+        background: #fc4a1a;
+        background: -webkit-linear-gradient(to right, #f7b733, #fc4a1a);
+        background: linear-gradient(to right, #f7b733, #fc4a1a);
+        color: #fff;
+        border: 3px solid #eee;
+    }
+
+    .btn-rounded {
+        border-radius: 35px;
+    }
+
+    @media screen and (max-width: 850px) {
+        .tble {
+            transform: translate(0px, 96px);
+            margin: auto;
+        }
+
+        p {
+            margin-right: 80px !important;
+        }
+
+        .btn {
+            margin-right: 60px !important;
+        }
+    }
+</style>
+{% endblock travelagency_stylesheets %}
+{% block travelagency_body %}
+<section class="tble" style="width: 95%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+    <section class="invoice">
+        <!-- title row -->
+        <div class="row">
+            <div class="col-xs-12">
+                <h4 class="text-center ml-2"> <i class="fa fa-building"></i> TRAVMAKS - A MAKS CUBE Product </h4>
+
+            </div><!-- /.col -->
+            <div class="col-md-6 text-right ml-auto">
+                <p class="font-weight-bold mb-1" style="margin-right:22px;">My Booking Record</p><br>
+                <button class="btn btn-cool-blues btn-rounded"><i class="fa fa-tachometer"></i>&nbsp;Analytical
+                    Dashboard</button>
+            </div>
+        </div>
+        <!-- info row -->
+        <div class="row invoice-info">
+
+        </div><!-- /.row -->
+
+        <!-- Table row -->
+        <br>
+        <div class="row">
+            <div class="col-xs-12 table-responsive">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="col-md-12 mt-3">
+                    <div class="alert alert-{{message.tags}}" role="alert">
+                        <h3>{{message}}</h3>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Tour Id</th>
+                            <th>Tour Name</th>
+                            <th>Starting Location</th>
+                            <th>Ending Location</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Total Members</th>
+                            <th>Profit On Tour</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for tour in Tours %}
+                        <tr>
+                            <td>{{tour.tour.tourId}}</td>
+                            <td>{{tour.tour.tourHeading}}</td>
+                            <td>{{tour.tour.startingLocation}}</td>
+                            <td>{{tour.tour.endLocation}}</td>
+                            <td>{{tour.tour.startDate}}</td>
+                            <td>{{tour.tour.endDate}}</td>
+                            <td>{{tour.total_people}}</td>
+                            <td id="price">{{tour.paid_by_user}}</td>
+                        </tr>
+
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="col-md-12 text-white text-center" style="background-color: #4b6cb7;">
+                <h5 style="font-size:25px; ">Total Profit</h5>
+                <b style="font-size:20px;">{{ Profit }}</b>
+            </div>
+        </div>
+
+    </section>
+</section>
+{% endblock travelagency_body %}

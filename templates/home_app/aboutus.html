@@ -1,0 +1,645 @@
+{% extends 'basetemplate.html' %}
+{% load static %}
+
+{% block stylesheets %}
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- <link rel="stylesheet" 
+href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    @keyframes comingfromleft {
+        0% {
+            transform: translateX(-100%);
+        }
+        100% {
+            transform: translateX(0);
+        }
+    }
+    .col-md-9{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .swiper-container {
+        width: 100%;
+        height: 400px;
+    }
+    .swiper-slide{
+        height: 300px;
+        width: 300px;
+        background-color: #ccc;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-flow: column;
+        text-align: center;
+        color: #000;
+        padding: 15px;
+        border-radius: 10px;
+    }
+    #team{
+        padding-top: 50px;
+    }
+    .swiper-slide div img{
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+    }
+    h4{
+        margin: 0;
+    }
+
+    #heading{
+        position: relative;
+        height: 60vw;
+    }
+    #heading video{
+        width: 100%;
+    }
+    #heading video source{
+        width: 100vw;
+        height: auto;
+    }
+    .vidcon{
+        position: absolute;
+    }
+    .vidtxt{
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        margin-bottom: 80px;
+        width: 50%;
+        color: white;
+        text-align: left;
+        margin-left: 80px;
+        transition: 1s;
+    }
+    .abt{
+        font-weight: bolder;
+        font-size: 72px;
+        color:#fdf88d;
+    }
+    .vidtxt{
+        font-size: 17px;
+
+    }
+    .vidtxt1{
+        font-weight: bold;
+    }
+    #contact1{
+        width: 100%;
+    }
+    #contact1 .container{
+        color: white;
+        display: flex;
+        justify-content: space-around;
+    }
+    #contact1 .container div{
+        padding-bottom: 7px;
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        justify-content: flex-start;
+        margin: 15px;
+    }
+    .cicon{
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.5);
+        display: flex;
+        align-items: center;
+        font-size: 30px;
+        padding-top: 0!important;
+        justify-content:center!important;
+    }
+    .cicon:hover{
+        background-color:#003164;
+    }
+    .fa-map-marker, .fa-phone{
+        font-size: 35px;
+    }
+    #contact-left h1{
+        color: #003164;
+        font-size: 50px;
+        margin-bottom: 30px;
+    }
+    #contact-left p{
+        color: #000;
+    }
+    #contact1 .container div{
+        /* padding: 20px; */
+        margin: 30px;
+    }
+    #heading{
+        transform: translateY(-220px);
+    }
+    #team{
+        /* transform: translateY(-50px); */
+        text-align: center;
+        color: white;
+        /* background-image: linear-gradient(to bottom,#051322,#15457c); */
+    }
+
+    #contact-left p{
+        margin: 0;
+    }
+    #parent{
+        padding-top: 50px;
+        width: 100%;
+        /* background-color: #0d141c; */
+        color: white;
+        text-align: center;
+    }
+    .servicec{
+        background-color: #159eee;
+        color: white;
+        margin: 0;
+    }
+    .pc{
+        background-color: #fff;
+        padding-bottom: 15px;
+    }
+    .mainfooter{
+        margin-top: 0;
+    }
+    .parentcimg, .parentcq{
+        display: flex;
+        flex-flow: column;
+        padding: 30px;
+        align-items: center;
+        justify-content: center;
+    }
+    #parent span{
+        display: flex;
+        flex-flow: row;
+    }
+    #parent span i{
+        margin-left: 15px;
+        border-radius: 50%;
+        width: 70px;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 30px;
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+    #parent span i:hover{
+        background-color:#003164;
+    }
+    
+    #doings{
+        /* transform: translateY(-150px); */
+        width: 100%;
+    }
+    .box{
+        width: 200px;
+        height: 230px;
+        font-size: 20px;
+        display: flex;
+        flex-flow: column;
+        /* background-image: linear-gradient(to bottom,#051322,#15457c); */
+        color: #87d3dc;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 30px 15px 15px 15px;
+        /* left: 60px; */
+        margin-left: 30px;
+        border-radius: 6px;
+        text-align: center;
+    }
+    .box p{
+        width: 100%;
+    }
+    .box i{
+        font-size: 25px;
+        margin-bottom: 10px;
+    }
+    .boxbg{
+        margin-top: 20px;
+        margin-left: 60px;
+        display: flex;
+        justify-content: space-around;
+        transform: translateY(-30px);
+    }
+    .doingsc{
+        display: flex;
+        flex-flow: column;
+        transform: translateY(-50px);
+    }
+    #doings h1{
+        width: 250px;
+        left: 0;
+        transform: rotate(270deg) translateX(-100px);
+        color: #fdf88d;
+    }
+    .doingsc .dohead{
+        margin-left: 60px;
+        height: auto;
+        padding: 15px;
+        color: white;
+    }
+    .dohead{
+        padding-bottom: 50px;
+    }
+    .vidtxt2, .vidtxt1{
+        font-size: 22px;
+    }
+    
+    @media screen and (max-width: 1500px){
+        #doings{
+            transform: translateY(-150px);
+        }
+    }
+    
+    @media screen and (max-width: 1324px){
+        #doings h1{
+            transform: translateX(-60px) translateY(100px) rotate(270deg);
+        }
+        #heading{
+            transform: translateY(0px);
+        }
+        .boxbg{
+            transform: translateY(10px);
+        }
+        #doings{
+            transform: translateY(0px);
+        }
+    }
+    @media screen and (max-width: 900px) {
+        .vidtxt{
+            margin-left: 20px;
+            margin-bottom: 30px;
+        }
+        .abt{
+            font-size: 35px;
+        }
+        .vidtxt p{
+            font-size: 12px;
+        }
+        #contact1 .container{
+            flex-flow: column;
+        }
+        
+        #heading{
+            transform: translateY(40px);
+        }
+        #doings h1{
+            transform: translateX(-80px) translateY(100px) rotate(270deg);
+        }
+        .boxbg{
+            margin-left: 20px;
+        }
+        .box{
+            width: 150px;
+        }
+    }
+    
+    @media screen and (min-width: 1500px) {
+        #doings h1{
+            width: 350px;
+            transform: translateY(200px) rotate(270deg);
+            font-size: 60px;
+        }
+        .boxbg{
+            transform: translateY(30px);
+        }
+        #heading{
+            transform: translateY(-30px);
+        }
+        #parent{
+            padding-top: 0;
+        }
+        #doings{
+            transform: translateY(-75px);
+        }
+    }
+    @media screen and (min-width: 1600px) {
+        #doings h1{
+            transform: translateX(100px) translateY(200px) rotate(270deg);
+        }
+    }
+    @media screen and (max-width: 400px) {
+        #doings h1{
+            transform: translateX(-60px) translateY(90px) rotate(270deg);
+            font-size: 25px;
+        }
+        #heading p{
+            font-size: 12px;
+            margin: 0;
+            color: white;
+        }
+        .vidtxt1{
+            font-weight: bold;
+            font-size: 15px!important;
+            color: #fdf88d!important;
+        }
+        .boxbg{
+            transform: translateY(-30px);
+        }
+        .box{
+            height: 200px;
+            font-size: 16px;
+            padding-top: 15px;
+        }
+        body{
+            width: 112%;
+        }
+        .super_container{
+            width: 100%;
+        }
+        .vidtxt{
+            transform: translateY(90px);
+        }
+        #doings{
+            transform: translateY(110px) translateX(-30px);
+        }
+    }
+    h3,h6,p{
+        margin-bottom: 0;
+    }
+    body{
+        background: rgb(38,61,105);
+        background: linear-gradient(0deg, rgba(38,61,105,1) 0%, rgba(6,10,41,1) 100%);
+        margin: 0 auto;
+        padding: 0 auto;
+    }
+    #hello{
+        background-image: linear-gradient(to bottom,#051322,#15457c);
+    }
+
+    
+    @media screen and (min-width: 400px) {
+        .vidtxt{        
+            animation: 2s ease-out 0s 1 comingfromleft;
+        }
+    }
+</style>
+
+{% endblock stylesheets %}
+
+{% block body %}
+
+<div id="preload">
+    <img id="loading-image" src="{% static 'img/loader1.gif' %}" alt="loader" />
+</div>
+
+<script type="text/javascript">
+    var loader = document.getElementById('preload');
+    function removeLoader() {
+      setTimeout(function () {
+        loader.style.display = 'none';
+      }, 3000);
+    }
+</script>
+<body>
+    <section id="heading">
+        <div class="vidcon">
+            <video autoplay muted loop width="100vw" height="auto">
+                <source type="video/mp4" src="{% static 'about_img/video.mp4' %}">
+            </video>
+        </div>
+        <div class="vidtxt">
+                <h1 class="abt">About Us...</h1>
+                <br>
+                <p class="vidtxt1">Best Travel Guidance</p>
+                <p class="vidtxt2"><i class="fa fa-quote-left" aria-hidden="true"></i>
+                    TRAVMAKS is an online travel organization in India, established in the year 2020 
+                    under MAKS CUBE Group. MAKS CUBE Group Of Industries PVT LTD is an Indian company 
+                    established in the year 2020 head office located at Kolkata, partnered with IEM-UEM Group.
+                    <i class="fa fa-quote-right" aria-hidden="true"></i>
+                </p>
+        </div>
+    </section>
+    <section id="doings">
+        <h1>What We Do</h1>
+        <div class="container doingsc">
+            <div class="dohead">
+                <h2>About More :</h2>
+                <p> “Tours & Travels” is the main thing which you purchase from us through 
+                    our website www.travmaks.in    and our mobile application. We are partnered 
+                    with more than 20,000 travel agencies all over the India.  If you are a travel 
+                    lover then TRAVMAKS is the place which you can trust undoubtedly. If you are a 
+                    solo traveller or someone who likes to do travel without any travel –agency but 
+                    you need anyone as your travel GUIDE at your travel place, we are here to provide 
+                    you that also.</p>
+                <p>Since 2020, the establishment of TRAVMAKS it has been focused on bringing the 
+                    customers the best in esteem and quality travel plans. Through our exceptionally 
+                    curated occasion bundles, we need to take you on an adventure where you personally 
+                    enjoy with the stunning magnificence of all over the world. We need you to observe 
+                    sensational scenes that are a long ways past your creative ability. We’re a worker 
+                    claimed online travel organization portal secured by our qualities, trustworthiness 
+                    and commitment to client benefit.</p>
+                <h2>Our Vision :</h2>
+                <p>Our vision is to be the most trusted and respected Travel Organization Portal recognized 
+                    by our clients for delivering excellence, to be a leading provider of Travel Solution across 
+                    all over the world within next 3 years</p>
+                <p>This is our small contribution in making India Digital.  Our vision is to increase the
+                     employment and creating a new kind of job sector for travel lovers having knowledge about
+                      a particular place, and also helping the small – medium size travel agencies to create 
+                      their online presence. </p>
+                <h3>How :</h3>
+                <p>We are here to provide a platform to travel agencies. It is a platform through which travel 
+                    agencies can generate lead from all over the world, and create an online presence without
+                     any single investment . This is also a platform for anyone passionate about travelling 
+                     and want to with generate income with it can sign-up on our platform as a “GUIDE”.</p>
+            </div>
+            <div class="boxbg">
+                <span class="box">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                    <p>We are Available 24x7 Hours</p>
+                </span>
+                <span class="box">
+                    <i class="fa fa-handshake-o" aria-hidden="true"></i>
+                    <p>We Treat Our Customer with High Values and Dedication</p>
+                </span>
+                <span class="box">
+                    <i class="fa fa-users" aria-hidden="true"></i>
+                    <p>+20 Projects</p>
+                    <p>+100 Happy Customers</p>
+                </span>
+            </div>
+        </div>
+    </section>
+    
+    <div id="hello">
+    <section id="contact1">
+        <div class="container">
+            <div>
+                <div class="cicon"><i class="fa fa-tint" aria-hidden="true"></i></div>
+                <h1>FOCUS</h1>
+                <p>We have a 100% 
+                    commitment to making all our sites the best they can possibly be, 
+                    no matter what it takes to get there.
+                </p>
+            </div>
+            <div>
+                <div class="cicon"><i class="fa fa-free-code-camp" aria-hidden="true"></i></div>
+                <h1>PASSION</h1>
+                <p>Our desire to produce good work runs deep – 
+                    that’s what lets us handle every project with fresh energy and enthusiasm.
+                </p>
+            </div>
+            <div>
+                <div class="cicon"><i class="fa fa-thumbs-up" aria-hidden="true"></i></i></div>
+                <h1>EMPATHY</h1>
+                <p>While we share our knowledge and experience, 
+                    we listen hard to understand your business and your needs.
+                </p>
+            </div>
+            <div>
+                <div class="cicon"><i class="fa fa-users" aria-hidden="true"></i></div>
+                <h1>TEAMWORK</h1>
+                <p>We are united with you in the drive to get the best from your 
+                    project – think of us as extra members of your team with all the skills you need.
+                </p>
+            </div>
+        </div>
+    </section>
+    <section id="team">
+        <div class="container">
+            <h1>Meet Our Team</h1><br>
+            <div class="swiper-container">
+                <!-- Additional required wrapper -->
+                <div class="swiper-wrapper">
+                    <!-- Slides -->
+
+                    <div class="swiper-slide">
+                        <div><img src="{% static 'about_img/sap.jpeg' %}" alt=""></div><br>
+                        <div>
+                            <h3>Saptorshe Das</h3>
+                            <h6>"Co-Founder, CEO &amp; Chairman"</h6>
+                            <p>With TRAVMAKS since 2020</p>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div><img src="{% static 'about_img/som.jpeg' %}" alt=""></div><br>
+                        <div>
+                            <h3>Someron Bakuli</h3>
+                            <h6>"Co-Founder, President &amp; Director"</h6>
+                            <p>With TRAVMAKS since 2020</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div><img src="{% static 'about_img/gov.jpeg' %}" alt=""></div><br>
+                        <div>
+                            <h3>Gobinda Ghosh</h3>
+                            <h6>"Founding Member &amp; Lead Front End Designer"</h6>
+                            <p>With TRAVMAKS since 2020</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div><img src="{% static 'about_img/ayanOff.png' %}" alt=""></div><br>
+                        <div>
+                            <h3>Ayan Koley</h3>
+                            <h6>"Founding Member &amp; Lead Front End Developer"</h6>
+                            <p>With TRAVMAKS since 2020</p>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div><img src="{% static 'about_img/kun.jpeg' %}" alt=""></div><br>
+                        <div>
+                            <h3>Kuntal Dinda</h3>
+                            <h6>"Founding Member, COO &amp; Director"</h6>
+                            <p>With TRAVMAKS since 2020</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div><img src="{% static 'about_img/souvick.jpeg' %}" alt=""></div><br>
+                        <div>
+                            <h3>Souvik Das</h3>
+                            <h6>"CTO &amp; Founding Member"</h6>
+                            <p>With TRAVMAKS since 2020</p>
+                        </div>
+                    </div>
+                    <!-- ... -->
+                </div>
+                <!-- If we need pagination -->
+                <div class="swiper-pagination"></div>
+            
+                <!-- If we need navigation buttons -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="parent">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Visit Our Parent Company</h1>
+                </div>
+                <div class="parentcq col-md-12">
+                    <h1>
+                    <a href="https://www.makscube.in" target="_blank">
+                            MAKS CUB3
+                    </a>
+                    </h1>
+                    <p>Contact : contact@makscube.in </p><br>
+                    <p>MAKS CUB3E information technology company with head office located in Kolkata. 
+                        We provide a portfolio of Information Technology services, Software, and Networking 
+                        that solves critical problems for clients. We specialize in helping clients secure their 
+                        operations, increase the efficiency and utilization of their data centers,
+                         enhance support to their end users and constituents, and modernize their enterprise applications.
+                    </p>
+                    <br>
+                    <span>
+                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                        <i class="fa fa-instagram" aria-hidden="true"></i>
+                        <i class="fa fa-linkedin" aria-hidden="true"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.js" 
+    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" 
+    crossorigin="anonymous">
+</script>
+<script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+      effect: 'coverflow',
+      centeredSlides: true,
+      slidesPerView: 'auto',
+      loop:true,
+      coverflowEffect: {
+        rotate: 50,
+        stretch: 0,
+        depth: 100,
+        modifier: 1,
+        slideShadows: true,
+      },
+      navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+      pagination: {
+        el: '.swiper-pagination',
+      },
+    //   scrollbar: {
+    //         el: '.swiper-scrollbar',
+    //     }
+    });
+    // $(function(){
+    //     $(window).scroll(function(){
+    //         var vidtxt2=document.querySelector('.vidtxt2');
+    //         var x=$('.vidtxt2').scrollTop();
+    //         console.log(x);
+    //     })
+    // });
+</script>
+{% endblock body %}

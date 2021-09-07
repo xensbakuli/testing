@@ -1,0 +1,293 @@
+{% extends 'travelagency/travelagency_basetemplate.html' %}
+{% load static %}
+
+{% block travelagency_stylesheets %}
+<!-- Enter your CSS links / inlines CSS here-->
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    *{
+		list-style: none;	
+	}
+	body{
+		background: rgb(186,224,245);
+		background: linear-gradient(90deg, rgba(186,224,245,1) 21%, rgba(221,221,237,1) 57%, rgba(143,228,245,1) 100%);
+	}
+	main{
+        display: block;
+    }
+	.main{
+		height: auto;
+		padding: 0;
+		margin: 20px;
+		left: 0;
+		display: flex;
+		justify-content: space-between;
+
+	}
+	.content{
+		width: calc(100%);
+        max-width: 1700px !important;
+        padding: 0px!important;
+	}
+    .mytable{
+        width: 100%;
+    }
+    .mycell {
+        width: 100%;
+        display: grid;
+        grid-gap: 10px;
+        margin-bottom: 20px;
+        /* background-color: #2196F3; */
+        padding: 10px;
+        border-radius: 5px;
+        overflow-x: scroll;
+    }
+
+    .gi {
+        /* background-color: rgba(255, 255, 255, 0.8); */
+        text-align: center;
+        padding: 8px;
+        font-size: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-flow: column;
+        min-width: 100px;
+    }
+
+    .gi1 {
+        grid-column: 1/ span 7;
+        grid-row: 1;
+    }
+    .gi1 div{
+        width: 100%;
+        text-align: left;
+    }
+    .gi2 {
+        grid-column: 1;
+        grid-row: 2;
+    }
+    .gi3 {
+        grid-column: 2;
+        grid-row: 2;
+    }
+    .gi4 {
+        grid-column: 3;
+        grid-row: 2;
+    }
+    .gi5 {
+        grid-column: 4;
+        grid-row: 2;
+    }
+    .gi6 {
+        grid-column: 5;
+        grid-row: 2;
+    }
+    .gi7 {
+        grid-column: 6;
+        grid-row: 2;
+    }
+    .gi2x{
+        grid-column: 1;
+        grid-row: 3;
+    }
+    .gi3x{
+        grid-column: 2;
+        grid-row: 3;
+    }
+    .gi4x{
+        grid-column: 3;
+        grid-row: 3;
+    }
+    .gi5x{
+        grid-column: 4;
+        grid-row: 3;
+    }
+    .gi6x{
+        grid-column: 5;
+        grid-row: 3;
+    }
+    .gi7x{
+        grid-column: 6;
+        grid-row: 3;
+    }
+    .gi8 {
+        grid-column: 7 / span 3;
+        grid-row: 2/span 3;
+        display: flex;
+        padding: 2px;
+    }
+    .gi9{
+        grid-column:1 / span 6;
+        grid-row: 4;
+        flex-flow: row;
+        padding: 5px;
+    }
+    .gi2, .gi3, .gi4, .gi5, .gi6, .gi7{
+        /* border: 1px solid ; */
+        border-radius: 5px;
+        height: 50px;
+        /* background: rgb(0,114,255);
+        background: linear-gradient(90deg, rgba(0,114,255,1) 13%, rgba(7,132,200,1) 49%, rgba(39,193,245,1) 82%, rgba(0,243,255,1) 100%); */
+        
+        background-color: #007bff;
+        border-color: #007bff;
+    } 
+    .gi6, .gi6x, .gi2, .gi2x, .gi5, .gi5x, .gi8{
+        width: 220px;
+        /* overflow-x: scroll; */
+    }
+    .mycell{
+        border: 1px skyblue solid;
+        margin-bottom: 10px;
+    }
+    .gi8 img{
+        max-width: 200px;
+        max-height: 200px;
+        border-radius: 4px;
+        object-fit: cover;
+    }
+    .gi9{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    .gi9 button{
+        margin-right: 20px;
+        font-size: 16px;
+        width: 80px;
+        border-radius: 5px;
+    }
+
+    @media screen and (max-width: 850px) {
+		.gi1{
+            grid-row: 1;
+            grid-column: 1/ span 2;
+        }
+        .gi1 div{
+            font-size: 19px;
+        }
+		.content{
+			width: 100%;
+			/* padding:30px; */
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-flow: column;
+			margin:80px 10px 0px 0px!important;
+			margin-top: 80px;
+		}
+        .gi1{
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+	}
+
+    @media screen and (max-width: 630px) {
+		.main{
+			width: 100%;
+			margin-left: 0;
+            left: 0;
+		}
+		.content{
+			width: 100%;
+			padding: 10px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-flow: column;
+			margin-left: 0;
+			left: 0;
+			margin-top: 80px;
+            /* overflow-x: scroll; */
+		}
+
+	}
+	.cursor-none{
+		pointer-events: none;
+	}
+	.footer-middle{
+		z-index: 5;
+	}
+</style>
+<!-- CSS ends here-->
+
+{% endblock travelagency_stylesheets %}
+
+{% block travelagency_body %}
+
+<!-- HTML starts here -->
+<div class="main">
+    <div class="container content">
+        <div class="mytable">
+            {% for tour in Tours %}
+            <div class="mycell">
+                <div class="gi1 gi"><div style="font-size:30px;font-weight:bold;left: 0;">{{tour.tourHeading}}</div></div>
+                <div class="gi2 gi"><span class="gihead">Tour ID </span></div>
+                <div class="gi2x gi" style="font-weight:bold;">{{tour.tourId}}</div>
+                <div class="gi3 gi"><span class="gihead">Tour Type</span> </div>
+                <div class="gi3x gi">
+                    {{tour.tour_type}}
+                </div>
+                <div class="gi4 gi"><span class="gihead">Price per People</span></div>
+                <div class="gi4x gi">{{tour.price}}</div>
+                <div class="gi5 gi">
+                    <span class="gihead">Date</span>
+                </div>
+                <div class="gi5x gi">
+                    <span style="font-weight:bold;">Starting Date</span>
+                    <span>{{tour.startDate}}</span>
+                    <span style="font-weight:bold;">Ending Date</span>
+                    <span>{{tour.endDate}}</span>
+                </div>
+                <div class="gi6 gi">
+                    <span class="githead">Location</span>
+                </div>
+                <div class="gi6x gi">
+                    <span style="font-weight:bold;">Starting Location</span>
+                    <span>{{tour.startingLocation}} </span>
+                    <span style="font-weight:bold;">Ending Location</span>
+                    <span>{{tour.endLocation}} </span>
+                </div>
+                <div class="gi7 gi"><span class="gihead">Can Book upto</span></div>
+                <div class="gi7x gi">
+                    {{tour.last_booking_date}}
+                </div>
+                <div class="gi8 gi"><img src="{{tour.thumbnail.url}}"><br><span style="font-weight:bold;border-bottom: 1px black solid;">Thumbnail</span></div>
+                <div class="gi9 gi">
+                    <button type="button" class="deletebtn btn-success"
+                    onclick="window.open('/tour/preview/{{tour.tourId}}')">
+                    Preview
+                </button>
+                    <button type="button" class="editbtn" style="background-color: #053fae;color:whitesmoke"
+                        onclick="location.href='/travelagency/agencytours/edit-tour/{{tour.seller.userAccess.agentId}}/{{tour.tourId}}'">
+                        Edit
+                    </button>
+                    <button type="button" class="deletebtn btn-danger"
+                    onclick="deleteCon();">
+                    Delete
+                </button>
+                </div>
+                <script>
+                    function deleteCon(){
+                        var v = confirm('Do you really wanna delete the tour?');
+                        if(v == true){
+                        location.href='/travelagency/agencytours/delete-tour/{{tour.seller.userAccess.agentId}}/{{tour.tourId}}'
+                        }
+                    }
+                </script>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- HTML ends here -->
+
+<!-- JS starts here-->
+
+<!-- JS ends here -->
+
+{% endblock travelagency_body %}

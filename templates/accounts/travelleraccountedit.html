@@ -1,0 +1,401 @@
+
+{% extends 'basetemplate.html' %}   
+{% load static %}
+{% block head %}
+<link rel="icon" href="/static/img/logo.jpeg" type="image/gif" sizes="20x20">
+<style>
+@media (max-width: 400px) {
+   h4 {
+    font-size: 17px;
+  }
+}
+</style>
+{% endblock head %}
+{% block body %}
+<div id="preload">
+    <img id="loading-image" src="{% static 'img/loader1.gif' %}" alt="loader" />
+</div>
+
+<script type="text/javascript">
+    var loader = document.getElementById('preload');
+    function removeLoader() {
+      setTimeout(function () {
+        loader.style.display = 'none';
+      }, 3000);
+    }
+</script>
+        <hr>
+		{% if messages %}
+                    {% for message in messages %}
+                    <div class="col-md-12">
+                        <div class="alert alert-{{message.tags}}" role="alert">
+                            {{message}}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+        <div class="container mt-5">
+            <div class="row flex-lg-nowrap">
+                <div class="col">
+                    <div class="row">
+                        <div class="col mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="e-profile">
+                                        <div class="row">
+
+                                            <div
+                                                class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
+
+                                                <div class="text-center text-sm-left mb-2 mb-sm-0">
+                                                    <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">YOUR USER ID :
+                                                        {{user.userAccess.userId}} </h4>
+                                                    <p class="mb-0">{{user.email}}</p>
+                                                    <div class="text-muted"><small>Last Login :
+                                                            {{user.last_login}}</small></div>
+                                                </div>
+
+                                                <form>
+                                                    <div class="row">
+                                                        <div class="col d-flex justify-content-end">
+                                                            <input class="btn btn-primary" type='button' name="edit"
+                                                                value='Edit'>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <ul class="nav nav-tabs">
+                                            <li class="nav-item"><a href="" class="active nav-link">Settings</a></li>
+                                        </ul>
+                                        <div class="tab-content pt-3">
+
+                                            <div class="tab-pane active">
+                                                <form class="form" onvalidate="" method="POST" action="{{request.path}}"
+                                                    enctype="multipart/form-data" id="user">
+                                                    {% csrf_token %}
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <div class="form-group">
+                                                                        <label>Full Name</label>
+                                                                        <input type="text" class="form-control"
+                                                                            value="{{user.name}}" name="name"
+                                                                            id="fullname" required disabled />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <div class="form-group">
+                                                                        <label>Gender</label>
+                                                                        <div class="maxl">
+                                                                            <label class="radio inline">
+                                                                                &nbsp;
+                                                                                <input type="radio" name="gender"
+                                                                                    value="Male" checked disabled>
+                                                                                <span> Male </span>
+                                                                            </label>
+                                                                            <label class="radio inline">
+                                                                                <input type="radio" name="gender"
+                                                                                    value="Female" disabled>
+                                                                                <span>Female </span>
+                                                                            </label>
+                                                                            <label class="radio inline">
+                                                                                <input type="radio" name="gender"
+                                                                                    value="Other" disabled>
+                                                                                <span>Others</span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <div class="form-group">
+                                                                        <label>Address</label>
+                                                                        <input type="text" class="form-control"
+                                                                            placeholder="Enter Full Address *"
+                                                                            name='address' id="address"
+                                                                            value="{{user.address}}" required
+                                                                            disabled />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <div class="form-group">
+                                                                        <label>Phone</label>
+                                                                        <input type="text" minlength="10" maxlength="10"
+                                                                            name="phone" class="form-control"
+                                                                            placeholder="Your Phone *" id="phone"
+                                                                            value="{{user.phNo}}" required disabled />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <div class="form-group">
+                                                                        <label>Birthdate</label>
+                                                                        <input type="date" value="{{user.DOB|date:'c'}}"
+                                                                            class="form-control" name="bdate" id="bdate"
+                                                                            required disabled />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <div class="form-group">
+                                                                        <label>Zip</label>
+                                                                        <input type="number" class="form-control"
+                                                                            placeholder="Enter ZIP Code *" name="zip"
+                                                                            id="zip" value="{{user.zipCode}}" required
+                                                                            disabled />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="form-group">
+                                                                        <button name="submit" type="submit" id="saveSeller"
+                                                                            class="form-control btn-primary btn-sm mt-2" disabled>
+                                                                            SAVE CHANGES
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-12 errormsgbg">
+                                                                    <div id="errormsg"
+                                                                        onclick="getElementById('errormsg').innerHTML = null">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-12 col-sm-12 mb-3">
+                                                        <div class="mb-2">
+                                                            <button class="badge badge-secondary"
+                                                                onclick="showChangePassword();">Chnage Password</button>
+                                                            <script type="text/javascript">
+                                                                function showChangePassword() {
+                                                                    document.getElementById('changePassword').style.display = 'block';
+                                                                }
+                                                            </script>
+                                                        </div>
+                                                        <!-- /accounts/change-password -->
+                                                        <form method="post" id='changePassword' style="display: none;"
+                                                            action="/accounts/change-password"
+                                                            enctype="multipart/form-data"
+                                                            onsubmit="return validPassword()">
+                                                            {% csrf_token %}
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <div class="form-group">
+                                                                        <label>Current Password</label>
+                                                                        <input class="form-control" type="password"
+                                                                            placeholder="*********" name="oldpassword"
+                                                                            id="oldpassword" required>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <div class="form-group">
+                                                                        <label>New Password</label>
+                                                                        <input class="form-control" type="password"
+                                                                            placeholder="********" name="password1"
+                                                                            id="password1" required>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <div class="form-group">
+                                                                        <label>Confirm <span
+                                                                                class="d-none d-xl-inline">Password</span></label>
+                                                                        <input class="form-control" type="password"
+                                                                            placeholder="********" name="password2"
+                                                                            id="password2" required>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col col-sm-12 mb-3">
+                                                                    <div class="form-group">
+                                                                        <center>
+                                                                            <button type="submit" name="submit"
+                                                                                class="btn-primary btn-sm">Change
+                                                                                Password</button>
+                                                                        </center>
+                                                                    </div>
+                                                                    <hr>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 errorhellobg">
+                                                        <div id="errorhello"
+                                                            onclick="getElementById('errorhello').innerHTML = null">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-sm-12 mb-3">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="custom-controls-stacked px-2">
+                                                            <div class="card-body">
+                                                                <h6 class="card-title font-weight-bold">
+                                                                    Support</h6>
+                                                                <p class="card-text">Get fast,
+                                                                    free help from our friendly
+                                                                    assistants.
+                                                                </p>
+                                                                <button type="button" class="btn btn-primary">Contact
+                                                                    Us</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+    </div>
+    <script>
+        function validPassword() {
+            var password2 = document.getElementById('password2').value;
+            var password1 = document.getElementById('password1').value;
+            var oldpassword = document.getElementById('oldpassword').value;
+            var errorhello = document.getElementById('errorhello');
+            var errorhellobg = document.querySelector('.errorhellobg');
+            var hello = new Array();
+            if (password1.length < 8) {
+                // console.log('3rd');
+                // alert('hi');
+                hello.push('Password Length must be atleast 8 charecters');
+                // console.log(hello[0]);
+            }
+            else {
+                if (password1 != password2) {
+                    // console.log('2nd');
+                    // hello.push('not same');
+                    // alert('not same');
+                    hello.push('Password did not match');
+                }
+                // hello.push('Password must be with in 8 to 20 charecter');
+            }
+            for (let i = 0; i < password1.length; i++) {
+                if (password1[i] === '<' || password1[i] === '>') {
+                    hello.push('< / > not allowed');
+                }
+            }
+            if (hello.length > 0) {
+                errorhello.innerHTML = hello.join(',\n');
+                errorhellobg.style.backgroundColor = 'red';
+                errorhello.style.color = '#fff';
+                return false;
+            }
+            // console.log(password1,password2,oldpassword);
+            return true;
+        }
+
+        const errormsgbg = document.querySelector('.errormsgbg')
+        const errormsg = document.getElementById('errormsg')
+        const user = document.getElementById('user')
+        // document.getElementById("bdate").addEventListener("change", function() {
+        //     const input = this.value;
+        // // });
+        // const bdate1=document.getElementById('bdate').value;
+        user.addEventListener('submit', (e) => {
+            let msg = []
+            dy = parseInt(bdate.value)
+            cd = new Date()
+            cy = cd.getFullYear()
+            //console.log(cy, dy)
+            if (name.value === '' || name.value === null) {
+                msg.push('Name is Required')
+            }
+            if (address.value === '' || address.value === null) {
+                msg.push('Address is Required')
+            }
+            if (phone.value === '' || phone.value === null) {
+                msg.push('Phone number is Required')
+            }
+            if (phone.value != Number(phone.value)) {
+                msg.push('Your phone must be number')
+            }
+            if (zip.value === '' || zip.value === null) {
+                msg.push('Zip code is Required')
+            }
+            if (bdate.value === '' || bdate.value === null) {
+                msg.push('Birthday is Required')
+            }
+            if ((cy - dy) < 14) {
+                msg.push('You must be 14 years old');
+            }
+            if (phone.value.length != 10) {
+                msg.push('Please Enter a valid Phone number')
+            }
+            if (phone.value != Number(phone.value)) {
+                msg.push('Your phone must be number');
+            }
+            if (zip.value.length != 6) {
+                msg.push('Please Enter a valid Zip Code')
+            }
+            if (msg.length > 0) {
+                e.preventDefault()
+                errormsg.innerText = msg.join(',\n')
+                errormsgbg.style.backgroundColor = 'red'
+                errormsg.style.color = '#fff'
+
+            }
+
+
+        })
+
+        $(document).ready(function () {
+
+            $("form input[type=text],form input[type=radio],form input[type=date],form select[type=checkbox],form input[type=email],form input[type=number]").prop("disabled", true);
+
+            $("input[name=edit]").on("click", function () {
+
+                $("input[type=text],input[type=radio],select[type=checkbox],form input[type=date],input[type=email],input[type=number],input[type=password],select").removeAttr("disabled");
+                document.getElementById("saveSeller").disabled=false;
+            })
+
+            $("input[name=Savechanges]").on("click", function () {
+
+                $("input[type=text],input[type=radio],select[type=checkbox],input[type=email],input[type=number],input[type=password],select").prop("disabled", true);
+            })
+
+
+        })
+        window.onbeforeunload = function (e) {
+        e = e || window.event;
+        if (e) {
+            e.returnValue = '';
+        }
+        return '';
+    };
+
+    </script>
+{% endblock body%}

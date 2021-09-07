@@ -1,0 +1,128 @@
+{% extends 'basetemplate.html' %}
+{% load static %}
+{% block stylesheets %}
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" >
+
+<style>
+body, html {
+  height: 100%;
+  margin: 0;
+}
+footer{
+  transform: none!important;
+}
+#page-top{
+  margin-top: 0!important;
+}
+.cmng {
+  height: auto;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  color: white;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 25px;
+  overflow-x: hidden;
+}
+.middle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+h1{
+font-size:37px;
+font-weight:900;
+}
+hr {
+  margin: auto;
+  width: 40%;
+}
+.fa-cog{
+animation: spin 2s linear infinite;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.fa-bell{
+animation: ghonta 2s linear infinite;
+}
+@keyframes ghonta{
+    0%{
+        transform: rotate(10deg);
+    }
+    50%{
+        transform: rotate(-10deg);
+    }
+    100%{
+        transform: rotate(10deg);
+    }
+}
+footer {
+    background-color: #0d141c;
+    color: #fff;
+    margin-top: -1px;
+}
+.cmng img{
+  width: 100%;
+  height: auto;
+  position: relative;
+  top: 0;
+  min-height: 500px;
+  min-width: 700px;
+  left: 0;
+  max-height: 100vh;
+    filter: brightness(0.2);
+}
+@media screen and (max-width:950px){
+  .middle{
+    width: 80%;
+    transform: translate(-50%,-40%);
+  }
+}
+@media screen and (max-width:750px){
+  .middle h1{
+    font-size: 26px;
+  }
+}
+@media screen and (max-width:600px){
+  .middle{
+    width: 100%;
+    padding: 30px;
+  }
+  .middle h1{
+    font-size: 22px;
+  }
+  .middle p{
+    font-size: 19px;
+  }
+  h1,p{
+    margin: 0;
+  }
+}
+</style>
+{% endblock stylesheets %}
+{% block body %}
+<div class="cmng">
+  <!-- <div class="cnmgbg"> -->
+    <img src="{% static 'img/pexels-fauxels-3184454.jpg' %}" alt="">
+  <!-- </div> -->
+  <div class="middle">
+    <h1>THIS FEATURE IS COMING SOON <i class="fa fa-bell"></i></h1>
+    <hr>
+    <p>Working on Beta Mode <i class="fa fa-cog"></i></p>
+  
+  <form>
+    <div class="modal-body">
+        <input type="email" class="form-control" required placeholder="Your Email Address">
+    </div>
+    <div  class="modal-footer">
+        <button type="submit" class="btn btn-primary">Get Update</button>
+    </div>
+</form>
+</div>
+</div>
+
+{% endblock body %}
