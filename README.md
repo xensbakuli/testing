@@ -1,5 +1,5 @@
 # TRAVWEB
-<p >It is a e-Commerce web app for travellers and blogers...</p>
+<p >It is a e-Commerce web app for travellers and blogers; implemeted in Django and JavaScript</p>
 
 ## Other Contributors
 <a href="https://github.com/iamsaptorshe07"><img width="90px" src="https://avatars.githubusercontent.com/u/54545530?v=4"></a>
