@@ -19,7 +19,7 @@ pickleshare==0.7.5
 Pillow==9.0.1
 pycparser==2.20
 pycryptodome==3.9.8
-PyPDF2==1.26.0
+PyPDF2==1.27.5
 pytz==2020.5
 reportlab==3.5.59
 requests==2.25.1
